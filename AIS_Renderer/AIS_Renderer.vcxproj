@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{777F137E-4442-43AD-A038-BC4FCFF2E01B}</ProjectGuid>
+    <RootNamespace>AIS_Renderer</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>WindowD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Boost\boost_1_34_1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>WindowD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Boost\boost_1_34_1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera_Active.cpp" />
+    <ClCompile Include="Camera_Passive.cpp" />
+    <ClCompile Include="EdgeSD.cpp" />
+    <ClCompile Include="Face.cpp" />
+    <ClCompile Include="FaceSD.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="IlluminationModel.cpp" />
+    <ClCompile Include="ImplicitCube.cpp" />
+    <ClCompile Include="ImplicitPlane.cpp" />
+    <ClCompile Include="ImplicitShape.cpp" />
+    <ClCompile Include="ImplicitSphere.cpp" />
+    <ClCompile Include="Intersection.cpp" />
+    <ClCompile Include="JWRT.cpp" />
+    <ClCompile Include="KeyFrame.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightArea.cpp" />
+    <ClCompile Include="LightPoint.cpp" />
+    <ClCompile Include="LightSpot.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialLambert.cpp" />
+    <ClCompile Include="MaterialPhong.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelAdv.cpp" />
+    <ClCompile Include="ModelBase.cpp" />
+    <ClCompile Include="ModelPhong.cpp" />
+    <ClCompile Include="ModelSubD.cpp" />
+    <ClCompile Include="ModelSys.cpp" />
+    <ClCompile Include="ObjReader.cpp" />
+    <ClCompile Include="OutputImage.cpp" />
+    <ClCompile Include="OutputTGA.cpp" />
+    <ClCompile Include="OutputWin.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="RaySystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TimeLine.cpp" />
+    <ClCompile Include="VeiwSys.cpp" />
+    <ClCompile Include="VertexSD.cpp" />
+    <ClCompile Include="ColourRGB.cpp" />
+    <ClCompile Include="Matrix4D.cpp" />
+    <ClCompile Include="point.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="Vector4D.cpp" />
+    <ClCompile Include="Vertex_R.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="JWRT.h" />
+    <ClInclude Include="KeyFrame.h" />
+    <ClInclude Include="TimeLine.h" />
+    <ClInclude Include="ColourRGB.h" />
+    <ClInclude Include="matrix4d.h" />
+    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="Vector4D.h" />
+    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="EdgeSD.h" />
+    <ClInclude Include="Face.h" />
+    <ClInclude Include="FaceSD.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex_R.h" />
+    <ClInclude Include="VertexSD.h" />
+    <ClInclude Include="Camera_Active.h" />
+    <ClInclude Include="Camera_Passive.h" />
+    <ClInclude Include="VeiwSys.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="ImplicitCube.h" />
+    <ClInclude Include="ImplicitPlane.h" />
+    <ClInclude Include="ImplicitShape.h" />
+    <ClInclude Include="ImplicitSphere.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="LightArea.h" />
+    <ClInclude Include="LightPoint.h" />
+    <ClInclude Include="LightSpot.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelAdv.h" />
+    <ClInclude Include="ModelBase.h" />
+    <ClInclude Include="ModelSys.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="ObjReader.h" />
+    <ClInclude Include="OutputImage.h" />
+    <ClInclude Include="OutputTGA.h" />
+    <ClInclude Include="OutputWin.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="RaySystem.h" />
+    <ClInclude Include="IlluminationModel.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialLambert.h" />
+    <ClInclude Include="MaterialPhong.h" />
+    <ClInclude Include="ModelPhong.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="notes.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

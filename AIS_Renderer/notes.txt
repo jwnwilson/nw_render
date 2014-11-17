@@ -1,0 +1,4 @@
+
+Light is set to true for spot light
+
+Ray RaySystem::getReflectRay(const Ray& ray1) has a rediculously high offset for ray position

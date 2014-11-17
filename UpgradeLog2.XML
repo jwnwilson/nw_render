@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="AIS_Renderer">
+</Property><Property Name="Solution File" Value="C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer.sln">
+</Property><Property Name="User Options File" Value="C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer.suo">
+</Property><Property Name="Date" Value="17 November 2014">
+</Property><Property Name="Time" Value="23:00">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="2" Project="" Source="AIS_Renderer.sln" Description="Error creating backup file: C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer.sln.old">
+</Event><Event ErrorLevel="2" Project="" Source="AIS_Renderer.suo" Description="Error creating backup file: C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer.suo.old">
+</Event><Event ErrorLevel="0" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="Converting project file 'C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer\AIS_Renderer.vcproj'.">
+</Event><Event ErrorLevel="1" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="0" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="Done converting to new project file 'C:\Users\noel\Documents\My Documents\Visual Studio 2008\Projects\AIS_Renderer\AIS_Renderer\AIS_Renderer.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="AIS_Renderer" Source="AIS_Renderer\AIS_Renderer.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="AIS_Renderer.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="AIS_Renderer.sln" Description="Converted">
+</Event></UpgradeLog>

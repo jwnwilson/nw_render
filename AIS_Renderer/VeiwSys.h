@@ -1,0 +1,40 @@
+#pragma once
+#include "Vector3D.h"
+#include "Vertex_R.h"
+#include "ColourRGB.h"
+#include "FrameBuffer.h"
+#include "Ray.h"
+#include "Scene.h"
+#include "RaySystem.h"
+#include <math.h>
+
+// used to controll camera's in the scene.
+
+class VeiwSys
+{
+public:
+	VeiwSys(void);
+	void initialise(FrameBuffer *);	
+	void setEye(const Vector3D& a){eyePos=a;}
+	void setScreen(const Vector3D& BL,const Vector3D& BR,const Vector3D& TR,const Vector3D& TL);
+	void translate(const Vector3D& trans);
+	void setTarget(const Vector3D& a);
+	virtual void setBounces(int b){;}
+	virtual void drawScene(Scene* s){;}
+	Ray getRay(int x,int y);
+	
+	//void setScreenRes(int x,int y){width=x;height=y;}
+	~VeiwSys(void);
+protected:
+	
+	float findRot(const Vector2D&,const Vector2D&);
+	void initaliseSys();
+	Vector3D getRayVec(int x,int y);
+	Vector3D eyePos,screenBotLef,screenBotRig,screenTopLef,screenTopRig,
+		Vx,Vy,screenCenter;
+	int width,height;
+	FrameBuffer *screen;
+	bool delBuffer;
+
+
+};

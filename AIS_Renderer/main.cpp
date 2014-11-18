@@ -60,7 +60,7 @@ int main()
 	c.h=h;
 	c.bounces=1;
 	c.camera='a';
-	c.output='t';
+	c.output='w';
 
 	JWRT render;
 	render.configure(c);

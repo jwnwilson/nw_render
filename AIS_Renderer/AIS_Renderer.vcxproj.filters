@@ -33,9 +33,6 @@
     <Filter Include="Header Files\Scene Objects\models">
       <UniqueIdentifier>{91746c52-32f5-4749-8684-a1c48dcc0706}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\utilities">
-      <UniqueIdentifier>{5bd29a24-0a22-4d70-9b38-d70dd02ca45c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Rays">
       <UniqueIdentifier>{69b09352-da57-4165-9c6d-f65a62884064}</UniqueIdentifier>
     </Filter>
@@ -46,21 +43,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\geometry">
+      <UniqueIdentifier>{88b04958-9ea9-4c9d-b5cb-9c5825433397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Output">
+      <UniqueIdentifier>{5bd29a24-0a22-4d70-9b38-d70dd02ca45c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera_Active.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera_Passive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EdgeSD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Face.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FaceSD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileReader.cpp">
@@ -70,18 +64,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IlluminationModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitCube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitPlane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitSphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Intersection.cpp">
@@ -189,6 +171,27 @@
     <ClCompile Include="Vertex_R.cpp">
       <Filter>Source Files\maths</Filter>
     </ClCompile>
+    <ClCompile Include="EdgeSD.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Face.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceSD.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitCube.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitPlane.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitShape.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitSphere.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JWRT.h">
@@ -294,19 +297,19 @@
       <Filter>Header Files\Scene Objects\models</Filter>
     </ClInclude>
     <ClInclude Include="FileReader.h">
-      <Filter>Header Files\utilities</Filter>
+      <Filter>Header Files\Output</Filter>
     </ClInclude>
     <ClInclude Include="ObjReader.h">
-      <Filter>Header Files\utilities</Filter>
+      <Filter>Header Files\Output</Filter>
     </ClInclude>
     <ClInclude Include="OutputImage.h">
-      <Filter>Header Files\utilities</Filter>
+      <Filter>Header Files\Output</Filter>
     </ClInclude>
     <ClInclude Include="OutputTGA.h">
-      <Filter>Header Files\utilities</Filter>
+      <Filter>Header Files\Output</Filter>
     </ClInclude>
     <ClInclude Include="OutputWin.h">
-      <Filter>Header Files\utilities</Filter>
+      <Filter>Header Files\Output</Filter>
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Header Files\Rays</Filter>

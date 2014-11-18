@@ -20,6 +20,7 @@ class JWRT
 {
 public:
 	JWRT(void);
+	JWRT(int argc, char **argV);
 	void initalise(int);
 	void configure(Configure&);
 	void render();
@@ -29,6 +30,8 @@ private:
 	TimeLine timeLine;
 	void setScene(int i);
 
+	int argCount;
+	char **argValues; 
 	bool error;
 	Configure config;
 	Scene mainScene;

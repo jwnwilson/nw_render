@@ -1,0 +1,4 @@
+*.tlog
+*.log
+AIS_Renderer/Debug/
+debug/

@@ -8,7 +8,7 @@ OutputWin::OutputWin(void)
 {
 	easel = NULL;
 	winArgc = 0;
-	winArgv = '';
+	winArgv = NULL;
 }
 
 OutputWin::OutputWin(int argc, char **argv)
@@ -23,6 +23,19 @@ OutputWin::~OutputWin(void)
 }
 OutputWin::OutputWin(int x,int y)
 {
+}
+
+void OutputWin::readBuff(const Buffer<ColourRGB>* inputBuffPtr)
+{
+	tempBuff=inputBuffPtr;
+
+	/*tempBuff.resize(inputBuffPtr->getSize());
+	for(int i=0;i<inputBuffPtr->getSize();i++)
+	{
+		tempBuff.setPix(i,inputBuffPtr->getPix(i));
+	}
+	tempBuff.setHeight(inputBuffPtr->getHeight());
+	tempBuff.setWidth(inputBuffPtr->getWidth());*/
 }
 
 void OutputWin::outputImage(const char*c)
@@ -68,19 +81,12 @@ void OutputWin::drawfunc(void) {
 
   cout << "in drawfunc" << endl;
 
-  // set first half of buffer to red
-  for (i=0; i<width/2; i++) {
-    for (j=0; j<height; j++) {
-      // set pixel at coord i,j to 'red'
-      setpixel(easel, i, j, 255, 0, 0);
-    }
-  }
-
-  // set second half to green
-  for (i=width/2; i<width; i++) {
+  // set pixels from temp buffer
+  for (i=0; i<width; i++) {
     for (j=0; j<height; j++) {
       // set pixel at coord i,j to 'green'
-      setpixel(easel, i, j, 0, 255, 0);
+	  ColourRGB buffPix = tempBuff->getPix(i,j);
+      setpixel(easel, i, j, buffPix.getRed()*255, buffPix.getGreen()*255, buffPix.getBlue()*255);
     }
   }
 

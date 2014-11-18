@@ -14,6 +14,7 @@ public:
 	OutputWin(int argc, char **argv);
 	OutputWin(int x,int y);
 	void outputImage(const char* c);
+	void readBuff(const Buffer<ColourRGB>*);
 	~OutputWin(void);
 
 private:

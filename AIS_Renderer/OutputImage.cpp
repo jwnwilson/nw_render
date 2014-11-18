@@ -1,5 +1,7 @@
 #include "OutputImage.h"
 
+const Buffer<ColourRGB> * OutputImage::tempBuff;
+
 OutputImage::OutputImage(void)
 {
 	tempBuff=NULL;

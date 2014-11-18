@@ -14,5 +14,5 @@ public:
 	virtual void outputImage(const char*){;}
 
 protected:
-	const Buffer<ColourRGB> *tempBuff;
+	static const Buffer<ColourRGB> *tempBuff;
 };

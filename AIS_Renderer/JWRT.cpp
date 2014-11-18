@@ -12,6 +12,17 @@ JWRT::JWRT(void)
 	camera=NULL;
 	output=NULL;
 	error = false;
+	argCount = 0;
+	argValues = NULL;
+}
+
+JWRT::JWRT(int argc, char **argV)
+{
+	camera=NULL;
+	output=NULL;
+	error = false;
+	argCount = argc;
+	argValues = argV;
 }
 
 JWRT::~JWRT(void)
@@ -49,7 +60,7 @@ void JWRT::configure(Configure& c)
 	}
 	else
 	{
-		output = new OutputWin();
+		output = new OutputWin(argCount, argValues);
 	}
 }
 void JWRT::render()

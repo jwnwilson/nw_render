@@ -35,6 +35,7 @@ protected:
 	int width,height;
 	FrameBuffer *screen;
 	bool delBuffer;
+	int currentX, currentY;
 
 
 };

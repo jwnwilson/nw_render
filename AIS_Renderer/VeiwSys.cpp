@@ -10,6 +10,8 @@ VeiwSys::VeiwSys(void)
 	Vector3D BLtoTR;
 	BLtoTR=screenTopRig-screenBotLef;
 	screenCenter=screenBotLef+(BLtoTR*0.5);
+	currentX = 0;
+	currentY = 0;
 	
 }
 void VeiwSys::initaliseSys()

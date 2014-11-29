@@ -15,9 +15,6 @@
     <Filter Include="Header Files\maths">
       <UniqueIdentifier>{f09b4c8d-4160-4cf8-b1fb-a86a50ac589b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Data Structures">
-      <UniqueIdentifier>{0b4c95d8-e0c3-416b-8712-a2016025b7cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Veiwing system">
       <UniqueIdentifier>{9021a5f9-8344-436c-8630-a0a20a56ed95}</UniqueIdentifier>
     </Filter>
@@ -43,96 +40,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Source Files\geometry">
-      <UniqueIdentifier>{88b04958-9ea9-4c9d-b5cb-9c5825433397}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Output">
       <UniqueIdentifier>{5bd29a24-0a22-4d70-9b38-d70dd02ca45c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Viewing system">
+      <UniqueIdentifier>{d21dc8b0-b04b-4e3c-a348-ce680de38521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rays">
+      <UniqueIdentifier>{6bcb180e-951b-42f4-8c2f-8b49ed8c6537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Objects">
+      <UniqueIdentifier>{fda7abb1-cd3f-456d-91bb-30800487fe81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Objects\Implicit">
+      <UniqueIdentifier>{f19439cd-7e78-4115-b20c-48b1d3353527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Objects\lights">
+      <UniqueIdentifier>{c6545895-95e6-4b09-b915-e19e1961f3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Objects\models">
+      <UniqueIdentifier>{39f12182-e5a3-49d1-a476-60ea1f9161ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Output">
+      <UniqueIdentifier>{639b743e-20ad-40ad-80b0-2366baa8d0e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data Structures">
+      <UniqueIdentifier>{82160b9e-f52b-45b0-9ac2-a369c2118a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data Structures">
+      <UniqueIdentifier>{0b4c95d8-e0c3-416b-8712-a2016025b7cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Illumination models">
+      <UniqueIdentifier>{767c2941-2c4c-474e-ba7b-783d774904d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera_Active.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera_Passive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IlluminationModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Intersection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="JWRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightArea.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightSpot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialLambert.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialPhong.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAdv.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelPhong.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ModelSubD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelSys.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputTGA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputWin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RaySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -142,12 +94,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeLine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VeiwSys.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexSD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColourRGB.cpp">
@@ -171,26 +117,104 @@
     <ClCompile Include="Vertex_R.cpp">
       <Filter>Source Files\maths</Filter>
     </ClCompile>
-    <ClCompile Include="EdgeSD.cpp">
-      <Filter>Source Files\geometry</Filter>
+    <ClCompile Include="Camera_Active.cpp">
+      <Filter>Source Files\Viewing system</Filter>
     </ClCompile>
-    <ClCompile Include="Face.cpp">
-      <Filter>Source Files\geometry</Filter>
+    <ClCompile Include="Camera_Passive.cpp">
+      <Filter>Source Files\Viewing system</Filter>
     </ClCompile>
-    <ClCompile Include="FaceSD.cpp">
-      <Filter>Source Files\geometry</Filter>
+    <ClCompile Include="VeiwSys.cpp">
+      <Filter>Source Files\Viewing system</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files\Rays</Filter>
+    </ClCompile>
+    <ClCompile Include="RaySystem.cpp">
+      <Filter>Source Files\Rays</Filter>
     </ClCompile>
     <ClCompile Include="ImplicitCube.cpp">
-      <Filter>Source Files\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitPlane.cpp">
-      <Filter>Source Files\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitShape.cpp">
-      <Filter>Source Files\geometry</Filter>
+      <Filter>Source Files\Scene Objects\Implicit</Filter>
     </ClCompile>
     <ClCompile Include="ImplicitSphere.cpp">
-      <Filter>Source Files\geometry</Filter>
+      <Filter>Source Files\Scene Objects\Implicit</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitPlane.cpp">
+      <Filter>Source Files\Scene Objects\Implicit</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitShape.cpp">
+      <Filter>Source Files\Scene Objects\Implicit</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\Scene Objects\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSpot.cpp">
+      <Filter>Source Files\Scene Objects\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="LightArea.cpp">
+      <Filter>Source Files\Scene Objects\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="LightPoint.cpp">
+      <Filter>Source Files\Scene Objects\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Scene Objects\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAdv.cpp">
+      <Filter>Source Files\Scene Objects\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelBase.cpp">
+      <Filter>Source Files\Scene Objects\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelSys.cpp">
+      <Filter>Source Files\Scene Objects\models</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>Source Files\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjReader.cpp">
+      <Filter>Source Files\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputImage.cpp">
+      <Filter>Source Files\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputTGA.cpp">
+      <Filter>Source Files\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputWin.cpp">
+      <Filter>Source Files\Output</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Intersection.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexSD.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeSD.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceSD.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Face.cpp">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="IlluminationModel.cpp">
+      <Filter>Source Files\Illumination models</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Illumination models</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLambert.cpp">
+      <Filter>Source Files\Illumination models</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialPhong.cpp">
+      <Filter>Source Files\Illumination models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelPhong.cpp">
+      <Filter>Source Files\Illumination models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

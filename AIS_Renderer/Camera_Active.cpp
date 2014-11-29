@@ -1,6 +1,16 @@
 #include "Camera_Active.h"
 #include "Ray.h"
 #include "time.h"
+#include <string>
+#include <sstream>
+
+template <typename T>
+string numberToString ( T Number )
+{
+	stringstream ss;
+	ss << Number;
+	return ss.str();
+}
 
 Camera_Active::Camera_Active(void)
 {
@@ -29,30 +39,26 @@ void Camera_Active::drawScene(Scene* sc1)
 	
 	cout<< "Starting render of scene." << endl;
 
-	for(int w=0;w<width;w++)
+	for(int w=currentX;w<width;w++)
 	{
-		for(int h=0;h<height;h++)
+		for(int h=currentY;h<height;h++)
 		{
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
-		if( w== per25)
-			cout<< "25% complete..." << endl;
-		if( w== per50)
-			cout<< "50% complete..." << endl;
-		if( w== per75)
-			cout<< "75% complete..." << endl;
-		if( w== per100)
+		if( w== per25 || w== per50 || w== per75 || w== per100)
 		{
-			char cont;
-			cout<< "100% complete." << endl;
+			cout<< ( numberToString(per25) + "% complete...") << endl;
+			currentX = w;
+			currentY = 0;
 			cout<< "Time to render:"<< endl;
 			timer = time(NULL);
 			cout<< float(timer - start)/60 << " minutes." <<endl;
-			cout<< "Enter Any key to continue\n";
-			cin >>cont;
+			break;
 		}
 	}
+
+	return;
 }

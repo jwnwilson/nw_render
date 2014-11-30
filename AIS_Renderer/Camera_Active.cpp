@@ -37,41 +37,73 @@ void Camera_Active::drawScene(Scene* sc1)
 	ColourRGB pixelCol;
 	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
 	int division = 20;
-	int step = width/division;
+	int w,h;
+	int wStep = width/division;
+	int hStep = height/division;
+	int maxW, maxH;
 	//time_t timer;
 	
 	//timer = time(NULL);
 	//int start = timer;
 	
 	//cout<< "Starting render of scene." << endl;
-
-	for(int w=currentX;w<width;w++)
+	if(currentX + wStep <= width)
 	{
-		for(int h=currentY;h<height;h++)
+		maxW = (currentX + wStep);
+	}
+	else
+	{
+		maxW = width;
+	}
+	if(currentY + hStep <= height)
+	{
+		maxH = (currentY + hStep);
+	} 
+	else
+	{
+		maxH = height;
+	}
+	
+	for(w=currentX;w<maxW;w++)
+	{
+		for(h=currentY;h<maxH;h++)
 		{
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
-		if( w % step == 0)
-		{
-			cout<< ( numberToString(((w / step) * (100 / division))) + "% complete...") << endl;
-			if (w== per100)
-			{
-				currentX = 0;
-			}
-			else
-			{
-				currentX = w+1;
-			}
-			currentY = 0;
-			//cout<< "Time to render:"<< endl;
-			//timer = time(NULL);
-			//cout<< float(timer - start)/60 << " minutes." <<endl;
-			break;
-		}
 	}
+		//if( w % wStep == 0)
+		//{
+	cout<< ( numberToString(((w / wStep) * (100 / division))) + "% complete...") << endl;
+	if (w== per100)
+	{
+		currentX = 0;
+		currentY = 0;
+	}
+	else
+	{
+		if(h == height && w == width)
+		{
+			currentX = 0;
+			currentY = 0;
+		}
+		if(h == height){
+			currentX = w;
+			currentY = 0;
+		}
+		else{
+			currentY = h;
+			currentX = 0;
+		}		
+	}
+	
+	//cout<< "Time to render:"<< endl;
+	//timer = time(NULL);
+	//cout<< float(timer - start)/60 << " minutes." <<endl;
+		//}
+	//}
 
 	return;
 }

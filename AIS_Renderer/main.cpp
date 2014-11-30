@@ -15,12 +15,34 @@
 #include "ObjReader.h"
 #include "JWRT.h"
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
+
+static JWRT *render;
+static Configure c;
+
+void saveRender()
+{
+	char res;
+	//cout << render;
+	cout << "Do you want to save the image to file?(y/n)";
+	cin >> res;
+	if( res == 'y' || res == 'Y')
+	{
+		c.output='t';
+		render->configure(c);
+		render->render();
+	}
+	cout << "Press any key to exit.";
+	cin >> res;
+}
 
 int main(int argc, char **argV)
 {
 	int w=512,h=512;
+
+	atexit(saveRender);
 	
 	cout<<"Please select a width and height for image:\n";
 	cout<<"Width:\n";
@@ -54,19 +76,17 @@ int main(int argc, char **argV)
 		h = 512;
 	}
 
-
-	Configure c;
 	c.w=w;
 	c.h=h;
-	c.bounces=1;
+	c.bounces=2;
 	c.camera='a';
 	c.output='w';
 
-	JWRT render(argc, argV);
+	render = new JWRT(argc, argV);
 	//JWRT render;
-	render.configure(c);
-	render.initalise(choice);
-	render.render();
+	render->configure(c);
+	render->initalise(choice);
+	render->render();
 
 	return 0;
 }

@@ -1,11 +1,11 @@
 #pragma once
-#include "veiwsys.h"
+#include "Camera.h"
 #include "ModelPhong.h"
 
 // Active camera used for rendering the scene
 
 class Camera_Active :
-	public VeiwSys
+	public Camera
 {
 public:
 	Camera_Active(void);

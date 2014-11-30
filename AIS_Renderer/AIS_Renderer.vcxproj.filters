@@ -123,9 +123,6 @@
     <ClCompile Include="Camera_Passive.cpp">
       <Filter>Source Files\Viewing system</Filter>
     </ClCompile>
-    <ClCompile Include="VeiwSys.cpp">
-      <Filter>Source Files\Viewing system</Filter>
-    </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files\Rays</Filter>
     </ClCompile>
@@ -216,6 +213,9 @@
     <ClCompile Include="ModelPhong.cpp">
       <Filter>Source Files\Illumination models</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Viewing system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JWRT.h">
@@ -276,9 +276,6 @@
       <Filter>Header Files\Veiwing system</Filter>
     </ClInclude>
     <ClInclude Include="Camera_Passive.h">
-      <Filter>Header Files\Veiwing system</Filter>
-    </ClInclude>
-    <ClInclude Include="VeiwSys.h">
       <Filter>Header Files\Veiwing system</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -355,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="ModelPhong.h">
       <Filter>Header Files\Illumination models</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Veiwing system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

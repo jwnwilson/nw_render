@@ -27,11 +27,17 @@ void Camera_Active::RayBounces(int i)
 
 void Camera_Active::drawScene(Scene* sc1)
 {
-	raySys.initalise(sc1,bounces);
-	phongM.setScene(sc1);
+	if( sc1 != NULL)
+	{
+		scene = sc1;
+	}
+	raySys.initalise(scene,bounces);
+	phongM.setScene(scene);
 	Vertex_R intersec;
 	ColourRGB pixelCol;
 	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
+	int percent = 10;
+	int step = width/percent;
 	time_t timer;
 	
 	timer = time(NULL);
@@ -48,10 +54,17 @@ void Camera_Active::drawScene(Scene* sc1)
 			pixelCol=raySys.rayIntoScene(ray1);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
-		if( w== per25 || w== per50 || w== per75 || w== per100)
+		if( w % step == 0)
 		{
-			cout<< ( numberToString(per25) + "% complete...") << endl;
-			currentX = w;
+			cout<< ( numberToString(((w / step) * percent)) + "% complete...") << endl;
+			if (w== per100)
+			{
+				currentX = 0;
+			}
+			else
+			{
+				currentX = w+1;
+			}
 			currentY = 0;
 			cout<< "Time to render:"<< endl;
 			timer = time(NULL);

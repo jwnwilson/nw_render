@@ -69,10 +69,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>D:\Program Files (x86)\NVIDIA Corporation\Cg\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\NVIDIA Corporation\Cg\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>WindowD.lib;D:\Program Files (x86)\NVIDIA Corporation\Cg\lib\glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>WindowD.lib;C:\Program Files (x86)\NVIDIA Corporation\Cg\lib\glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files\Boost\boost_1_34_1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -145,7 +145,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeLine.cpp" />
-    <ClCompile Include="VeiwSys.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="VertexSD.cpp" />
     <ClCompile Include="ColourRGB.cpp" />
     <ClCompile Include="Matrix4D.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="VertexSD.h" />
     <ClInclude Include="Camera_Active.h" />
     <ClInclude Include="Camera_Passive.h" />
-    <ClInclude Include="VeiwSys.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ImplicitCube.h" />
     <ClInclude Include="ImplicitPlane.h" />

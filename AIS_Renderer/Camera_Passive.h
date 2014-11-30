@@ -1,12 +1,12 @@
 #pragma once
-#include "veiwsys.h"
+#include "Camera.h"
 #include "Model.h"
 
 // passive camera used to draw wireframe, needs updating as no longer compatable with renderer
 // used for early tests and debugging.
 
 class Camera_Passive :
-	public VeiwSys
+	public Camera
 {
 public:
 	Camera_Passive(void);

@@ -1,4 +1,4 @@
-#include "VeiwSys.h"
+#include "Camera.h"
 #include "FrameBuffer.h"
 #include "OutputWin.h"
 #include "Camera_Passive.h"

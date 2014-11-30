@@ -3,12 +3,15 @@
 char * OutputWin::easel=NULL;
 int	OutputWin::width=NULL;
 int	OutputWin::height=NULL;
+OutputWin* OutputWin::output=NULL;
 
 OutputWin::OutputWin(void)
 {
-	easel = NULL;
-	winArgc = 0;
-	winArgv = NULL;
+	easel=NULL;
+	winArgc=0;
+	winArgv=NULL;
+	camera=NULL;
+	output=this;
 }
 
 OutputWin::OutputWin(int argc, char **argv)
@@ -16,6 +19,8 @@ OutputWin::OutputWin(int argc, char **argv)
 	winArgc = argc;
 	winArgv = argv;
 	easel = NULL;
+	camera=NULL;
+	output=this;
 }
 
 OutputWin::~OutputWin(void)
@@ -80,6 +85,8 @@ void OutputWin::drawfunc(void) {
   int i,j;
 
   cout << "in drawfunc" << endl;
+
+  output->camera->drawScene(NULL);
 
   // set pixels from temp buffer
   for (i=0; i<width; i++) {

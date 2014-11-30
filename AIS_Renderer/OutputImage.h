@@ -1,6 +1,7 @@
 #pragma once
 #include "Buffer.h"
 #include "ColourRGB.h"
+#include "Camera.h"
 
 // Will output image as required according to it's derived children
 
@@ -12,7 +13,9 @@ public:
 	~OutputImage(void);
 	virtual void readBuff(const Buffer<ColourRGB>*);
 	virtual void outputImage(const char*){;}
+	virtual void setCamera(Camera *c){camera = c;}
 
 protected:
 	static const Buffer<ColourRGB> *tempBuff;
+	Camera *camera;
 };

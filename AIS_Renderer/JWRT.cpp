@@ -70,7 +70,10 @@ void JWRT::render()
 		if(timeLine.keyFrames.size()==0)
 		{
 			camera->initialise(&image);
-			camera->drawScene(&mainScene);
+			camera->setScene(&mainScene);
+			//camera->setOutput(output);
+			//camera->drawScene();
+			output->setCamera(camera);
 			output->readBuff(image.getColour());
 			output->outputImage("render");
 			cout<< "Image output as 'render.tga' in project directory\n";

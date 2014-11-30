@@ -1,5 +1,6 @@
 #pragma once
 #include "outputimage.h"
+#include "Camera.h"
 #include <iostream>
 #include <stdlib.h>
 #include <GL/glut.h>
@@ -25,6 +26,7 @@ private:
 
 	static char *easel;
 	static int width, height;
+	static OutputWin *output;
 	int winArgc;
 	char **winArgv;
 };

@@ -35,7 +35,7 @@ private:
 	bool error;
 	Configure config;
 	Scene mainScene;
-	VeiwSys *camera;
+	Camera *camera;
 	FrameBuffer image;
 	OutputImage* output;
 };

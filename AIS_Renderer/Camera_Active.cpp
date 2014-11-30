@@ -36,11 +36,12 @@ void Camera_Active::drawScene(Scene* sc1)
 	Vertex_R intersec;
 	ColourRGB pixelCol;
 	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
-	int division = 20;
-	int w,h;
+	int division = 3;
+	int w = currentX ,h = currentY;
 	int wStep = width/division;
 	int hStep = height/division;
 	int maxW, maxH;
+	bool refresh = false;
 	//time_t timer;
 	
 	//timer = time(NULL);
@@ -74,10 +75,10 @@ void Camera_Active::drawScene(Scene* sc1)
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
 	}
-		//if( w % wStep == 0)
-		//{
-	cout<< ( numberToString(((w / wStep) * (100 / division))) + "% complete...") << endl;
-	if (w== per100)
+	int percX = (((float(currentX) / width) * 100));
+	int percY = (((float(h) / height) * 100)/ division);
+ 	cout<< ( numberToString(percX + percY) + "% complete...") << endl;
+	if (w== width && refresh)
 	{
 		currentX = 0;
 		currentY = 0;
@@ -95,7 +96,7 @@ void Camera_Active::drawScene(Scene* sc1)
 		}
 		else{
 			currentY = h;
-			currentX = 0;
+			//currentX = 0;
 		}		
 	}
 	

@@ -78,7 +78,7 @@ int main(int argc, char **argV)
 
 	c.w=w;
 	c.h=h;
-	c.bounces=2;
+	c.bounces=1;
 	c.camera='a';
 	c.output='w';
 

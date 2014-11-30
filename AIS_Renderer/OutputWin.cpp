@@ -84,7 +84,7 @@ void OutputWin::setpixel(char *buf, int x, int y, int r, int g, int b) {
 void OutputWin::drawfunc(void) {
   int i,j;
 
-  cout << "in drawfunc" << endl;
+  //cout << "in drawfunc" << endl;
 
   output->camera->drawScene(NULL);
 

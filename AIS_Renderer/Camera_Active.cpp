@@ -36,14 +36,14 @@ void Camera_Active::drawScene(Scene* sc1)
 	Vertex_R intersec;
 	ColourRGB pixelCol;
 	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
-	int percent = 10;
-	int step = width/percent;
-	time_t timer;
+	int division = 20;
+	int step = width/division;
+	//time_t timer;
 	
-	timer = time(NULL);
-	int start = timer;
+	//timer = time(NULL);
+	//int start = timer;
 	
-	cout<< "Starting render of scene." << endl;
+	//cout<< "Starting render of scene." << endl;
 
 	for(int w=currentX;w<width;w++)
 	{
@@ -56,7 +56,7 @@ void Camera_Active::drawScene(Scene* sc1)
 		}
 		if( w % step == 0)
 		{
-			cout<< ( numberToString(((w / step) * percent)) + "% complete...") << endl;
+			cout<< ( numberToString(((w / step) * (100 / division))) + "% complete...") << endl;
 			if (w== per100)
 			{
 				currentX = 0;
@@ -66,9 +66,9 @@ void Camera_Active::drawScene(Scene* sc1)
 				currentX = w+1;
 			}
 			currentY = 0;
-			cout<< "Time to render:"<< endl;
-			timer = time(NULL);
-			cout<< float(timer - start)/60 << " minutes." <<endl;
+			//cout<< "Time to render:"<< endl;
+			//timer = time(NULL);
+			//cout<< float(timer - start)/60 << " minutes." <<endl;
 			break;
 		}
 	}

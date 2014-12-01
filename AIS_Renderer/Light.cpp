@@ -2,7 +2,7 @@
 
 Light::Light()
 {
-	type=BASICL;
+	type=BASICLIGHT;
 	lightRGB= ColourRGB(0.5,0.5,0.5);
 }
 
@@ -29,7 +29,7 @@ Light::~Light(void)
 
 bool Light::isSpot()const
 {
-	if(type==SPOTL)
+	if(type==SPOTLIGHT)
 	{
 		return true;
 	}
@@ -37,7 +37,7 @@ bool Light::isSpot()const
 }
 bool Light::isPoint()const
 {
-	if(type==POINTL)
+	if(type==POINTLIGHT)
 	{
 		return true;
 	}
@@ -45,7 +45,7 @@ bool Light::isPoint()const
 }
 bool Light::isArea()const
 {
-	if(type==AREAL)
+	if(type==AREALIGHT)
 	{
 		return true;
 	}

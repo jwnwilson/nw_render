@@ -36,7 +36,7 @@ void Camera_Active::drawScene(Scene* sc1)
 	Vertex_R intersec;
 	ColourRGB pixelCol;
 	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
-	int division = 3;
+	int division = 1;
 	int w = currentX ,h = currentY;
 	int wStep = width/division;
 	int hStep = height/division;

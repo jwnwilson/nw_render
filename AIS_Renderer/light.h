@@ -4,10 +4,10 @@
 #include "ColourRGB.h"
 #include <vector>
 
-#define BASICL 0
-#define SPOTL 1
-#define POINTL 2
-#define AREAL 3
+#define BASICLIGHT 0
+#define SPOTLIGHT 1
+#define POINTLIGHT 2
+#define AREALIGHT 3
 
 // Simple light class
 

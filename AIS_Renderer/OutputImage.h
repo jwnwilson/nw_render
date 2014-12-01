@@ -14,6 +14,7 @@ public:
 	virtual void readBuff(const Buffer<ColourRGB>*);
 	virtual void outputImage(const char*){;}
 	virtual void setCamera(Camera *c){camera = c;}
+	Camera* getCamera(){return camera;}
 
 protected:
 	static const Buffer<ColourRGB> *tempBuff;

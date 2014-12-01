@@ -5,6 +5,38 @@ int	OutputWin::width=NULL;
 int	OutputWin::height=NULL;
 OutputWin* OutputWin::output=NULL;
 
+#include <windows.h>
+#include <iostream>
+
+DWORD WINAPI myThread(LPVOID lpVariable)
+{
+	OutputWin *output = OutputWin::getOutput();
+	Camera * cam = output->getCamera();
+	cam->drawScene(NULL);
+	return 0;
+}
+
+/*int main(int argc, char* argv[])
+{
+	using namespace std;
+
+	unsigned int myCounter = 0;
+	DWORD myThreadID, myThreadID2, myThreadID3;
+	HANDLE myHandle = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
+	HANDLE myHandle2 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID2);
+	HANDLE myHandle3 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID3);
+	char myChar = ' ';
+	while(myChar != 'q') {
+		cout << myCounter << endl;
+		myChar = getchar();
+	}
+	
+	CloseHandle(myHandle);
+	CloseHandle(myHandle2);
+	CloseHandle(myHandle3);
+	return 0;
+}*/
+
 OutputWin::OutputWin(void)
 {
 	easel=NULL;
@@ -66,9 +98,14 @@ void OutputWin::outputImage(const char*c)
 
 	glutDisplayFunc(drawfunc);
 	glutKeyboardFunc(keyfunc);
+
+	DWORD myThreadID;
+	HANDLE myHandle = CreateThread(0, 0, myThread, NULL, 0, &myThreadID);
   
 	// start the main glut loop, no code runs after this
 	glutMainLoop();
+
+	CloseHandle(myHandle);
 }
 
 
@@ -86,7 +123,7 @@ void OutputWin::drawfunc(void) {
 
   //cout << "in drawfunc" << endl;
 
-  output->camera->drawScene(NULL);
+  //output->camera->drawScene(NULL);
 
   // set pixels from temp buffer
   for (i=0; i<width; i++) {

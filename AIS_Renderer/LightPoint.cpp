@@ -7,7 +7,7 @@ LightPoint::LightPoint(void)
 	attenCo1=1.0f;
 	attenCo2=0.0f;
 	attenCo3=0.0f;
-	type=POINTL;
+	type=POINTLIGHT;
 }
 
 LightPoint::~LightPoint(void)

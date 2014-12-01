@@ -16,6 +16,7 @@ public:
 	OutputWin(int x,int y);
 	void outputImage(const char* c);
 	void readBuff(const Buffer<ColourRGB>*);
+	static OutputWin * getOutput(){return output;}
 	~OutputWin(void);
 
 private:

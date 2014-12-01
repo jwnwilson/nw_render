@@ -7,6 +7,7 @@
 #include "LightArea.h"
 #include "LightSpot.h"
 #include "ImplicitSphere.h"
+
 JWRT::JWRT(void)
 {
 	camera=NULL;

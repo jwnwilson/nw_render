@@ -3,7 +3,7 @@
 
 LightArea::LightArea(void)
 {
-	type=AREAL;
+	type=AREALIGHT;
 	segments = 16;
 	width = 2.;
 	height = 1.;

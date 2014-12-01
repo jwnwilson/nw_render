@@ -10,7 +10,7 @@ LightSpot::LightSpot()
 	attenCo2=0;
 	attenCo3=0;
 	attenExp=1;
-	type=SPOTL;
+	type=SPOTLIGHT;
 }
 
 LightSpot::LightSpot(const ColourRGB& a,const Vector3D& b,const Vector3D& c,const float& d)

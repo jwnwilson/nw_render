@@ -35,34 +35,36 @@ void Camera_Active::drawScene(Scene* sc1)
 	phongM.setScene(scene);
 	Vertex_R intersec;
 	ColourRGB pixelCol;
-	int const per25=width*0.25,const per50=width*0.5, const per75=width*0.75, const per100=width-1;
 	int division = 1;
 	int w = currentX ,h = currentY;
 	int wStep = width/division;
 	int hStep = height/division;
 	int maxW, maxH;
 	bool refresh = false;
+
+	currentX == 0 ? currentX = params.xStart : currentX = currentX; 
+	currentY == 0 ? currentY = params.yStart : currentY = currentY; 
 	//time_t timer;
 	
 	//timer = time(NULL);
 	//int start = timer;
 	
 	//cout<< "Starting render of scene." << endl;
-	if(currentX + wStep <= width)
+	if(currentX + wStep <= params.xEnd)
 	{
 		maxW = (currentX + wStep);
 	}
 	else
 	{
-		maxW = width;
+		maxW = params.xEnd;
 	}
-	if(currentY + hStep <= height)
+	if(currentY + hStep <= params.yEnd)
 	{
 		maxH = (currentY + hStep);
 	} 
 	else
 	{
-		maxH = height;
+		maxH = params.yEnd;
 	}
 	
 	for(w=currentX;w<maxW;w++)

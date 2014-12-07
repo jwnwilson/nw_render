@@ -8,34 +8,15 @@ OutputWin* OutputWin::output=NULL;
 #include <windows.h>
 #include <iostream>
 
-DWORD WINAPI myThread(LPVOID lpVariable)
+DWORD WINAPI renderThread(LPVOID lpVariable)
 {
-	OutputWin *output = OutputWin::getOutput();
-	Camera * cam = output->getCamera();
-	cam->drawScene(NULL);
+	CamParams* params = (CamParams*)lpVariable;
+	//OutputWin *output = OutputWin::getOutput();
+	//params->cam = output->getCamera();
+	params->cam->setParams(*params);
+	params->cam->drawScene(NULL);
 	return 0;
 }
-
-/*int main(int argc, char* argv[])
-{
-	using namespace std;
-
-	unsigned int myCounter = 0;
-	DWORD myThreadID, myThreadID2, myThreadID3;
-	HANDLE myHandle = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID);
-	HANDLE myHandle2 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID2);
-	HANDLE myHandle3 = CreateThread(0, 0, myThread, &myCounter, 0, &myThreadID3);
-	char myChar = ' ';
-	while(myChar != 'q') {
-		cout << myCounter << endl;
-		myChar = getchar();
-	}
-	
-	CloseHandle(myHandle);
-	CloseHandle(myHandle2);
-	CloseHandle(myHandle3);
-	return 0;
-}*/
 
 OutputWin::OutputWin(void)
 {
@@ -99,13 +80,25 @@ void OutputWin::outputImage(const char*c)
 	glutDisplayFunc(drawfunc);
 	glutKeyboardFunc(keyfunc);
 
-	DWORD myThreadID;
-	HANDLE myHandle = CreateThread(0, 0, myThread, NULL, 0, &myThreadID);
-  
+	DWORD myThreadID1, myThreadID2 ;
+	CamParams p1, p2;
+	p1.xStart = 0;
+	p1.xEnd = width/2;
+	p1.yStart = 0;
+	p1.yEnd = height;
+	p1.cam = camera;
+	p2.xStart = width/2;
+	p2.xEnd = width;
+	p2.yStart = 0;
+	p2.yEnd = height;
+	p2.cam = camera;
+	HANDLE myHandle1 = CreateThread(0, 0, renderThread, &p1, 0, &myThreadID1);
+	HANDLE myHandle2 = CreateThread(0, 0, renderThread, &p2, 0, &myThreadID2);
 	// start the main glut loop, no code runs after this
 	glutMainLoop();
 
-	CloseHandle(myHandle);
+	CloseHandle(myHandle1);
+	CloseHandle(myHandle2);
 }
 
 

@@ -11,6 +11,12 @@
 
 // used to controll camera's in the scene.
 
+struct CamParams
+{
+    int xStart, xEnd, yStart, yEnd;
+    Camera* cam;
+};
+
 class Camera
 {
 public:
@@ -21,6 +27,7 @@ public:
 	void translate(const Vector3D& trans);
 	void setTarget(const Vector3D& a);
 	void setScene(Scene *s){scene=s;}
+	void setParams(CamParams c){params = c;}
 	virtual void setBounces(int b){;}
 	virtual void drawScene(Scene* s){;}
 	Ray getRay(int x,int y);
@@ -39,6 +46,7 @@ protected:
 	Scene *scene;
 	bool delBuffer;
 	int currentX, currentY;
+	CamParams params;
 
 
 };

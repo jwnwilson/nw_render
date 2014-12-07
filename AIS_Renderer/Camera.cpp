@@ -12,6 +12,10 @@ Camera::Camera(void)
 	screenCenter=screenBotLef+(BLtoTR*0.5);
 	currentX = 0;
 	currentY = 0;
+	params.xStart = 0;
+	params.xEnd = width;
+	params.yStart = 0;
+	params.yEnd = height;
 	
 }
 void Camera::initaliseSys()

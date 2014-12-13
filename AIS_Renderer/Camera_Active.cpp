@@ -25,7 +25,7 @@ void Camera_Active::RayBounces(int i)
 	bounces = i;
 }
 
-void Camera_Active::drawScene(Scene* sc1)
+void Camera_Active::drawScene(Scene* sc1, int threadId)
 {
 	if( sc1 != NULL)
 	{
@@ -41,63 +41,71 @@ void Camera_Active::drawScene(Scene* sc1)
 	int hStep = height/division;
 	int maxW, maxH;
 	bool refresh = false;
+	CamParams *param;
+	if( threadId != 0){
+		param = &params[threadId];
+	}
 
-	currentX == 0 ? currentX = params.xStart : currentX = currentX; 
-	currentY == 0 ? currentY = params.yStart : currentY = currentY; 
+	param->currentX == 0 ? param->currentX = param->xStart : param->currentX = param->currentX; 
+	param->currentY == 0 ? param->currentY = param->yStart : param->currentY = param->currentY; 
 	//time_t timer;
 	
 	//timer = time(NULL);
 	//int start = timer;
 	
 	//cout<< "Starting render of scene." << endl;
-	if(currentX + wStep <= params.xEnd)
+	if(param->currentX + wStep <= param->xEnd)
 	{
-		maxW = (currentX + wStep);
+		maxW = (param->currentX + wStep);
 	}
 	else
 	{
-		maxW = params.xEnd;
+		maxW = param->xEnd;
 	}
-	if(currentY + hStep <= params.yEnd)
+	if(param->currentY + hStep <= param->yEnd)
 	{
-		maxH = (currentY + hStep);
+		maxH = (param->currentY + hStep);
 	} 
 	else
 	{
-		maxH = params.yEnd;
+		maxH = param->yEnd;
 	}
 	
-	for(w=currentX;w<maxW;w++)
+	for(w=param->currentX;w<maxW;w++)
 	{
-		for(h=currentY;h<maxH;h++)
+		for(h=param->currentY;h<maxH;h++)
 		{
+			//cout<< "ThreadId: " << threadId;
+			//cout << endl;
+			//cout << "w and h values: " << w << "," << h;
+			//cout << endl;
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
 	}
-	int percX = (((float(currentX) / width) * 100));
+	int percX = (((float(param->currentX) / width) * 100));
 	int percY = (((float(h) / height) * 100)/ division);
  	cout<< ( numberToString(percX + percY) + "% complete...") << endl;
 	if (w== width && refresh)
 	{
-		currentX = 0;
-		currentY = 0;
+		param->currentX = 0;
+		param->currentY = 0;
 	}
 	else
 	{
 		if(h == height && w == width)
 		{
-			currentX = 0;
-			currentY = 0;
+			param->currentX = 0;
+			param->currentY = 0;
 		}
 		if(h == height){
-			currentX = w;
-			currentY = 0;
+			param->currentX = w;
+			param->currentY = 0;
 		}
 		else{
-			currentY = h;
+			param->currentY = h;
 			//currentX = 0;
 		}		
 	}

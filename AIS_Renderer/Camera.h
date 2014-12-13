@@ -8,12 +8,14 @@
 #include "RaySystem.h"
 #include "OutputImage.h"
 #include <math.h>
+#include <map>
 
 // used to controll camera's in the scene.
 
 struct CamParams
 {
-    int xStart, xEnd, yStart, yEnd;
+    int xStart, xEnd, yStart, yEnd, threadId;
+	float currentX, currentY;
     Camera* cam;
 };
 
@@ -27,9 +29,9 @@ public:
 	void translate(const Vector3D& trans);
 	void setTarget(const Vector3D& a);
 	void setScene(Scene *s){scene=s;}
-	void setParams(CamParams c){params = c;}
+	void setParams(CamParams c, int threadId){params[threadId] = c;}
 	virtual void setBounces(int b){;}
-	virtual void drawScene(Scene* s){;}
+	virtual void drawScene(Scene* s, int threadId){;}
 	Ray getRay(int x,int y);
 	
 	//void setScreenRes(int x,int y){width=x;height=y;}
@@ -46,7 +48,8 @@ protected:
 	Scene *scene;
 	bool delBuffer;
 	int currentX, currentY;
-	CamParams params;
+	//CamParams params;
+	map<int,CamParams> params;
 
 
 };

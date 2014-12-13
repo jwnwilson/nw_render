@@ -17,7 +17,7 @@ Camera_Passive::Camera_Passive(void)
 Camera_Passive::~Camera_Passive(void)
 {
 }
-void Camera_Passive::drawScene(Scene* sc1)
+void Camera_Passive::drawScene(Scene* sc1, int threadId)
 {
 	for (int i =0; i< sc1->models.size(); i++)
 	{

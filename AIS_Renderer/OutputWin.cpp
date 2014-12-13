@@ -11,10 +11,8 @@ OutputWin* OutputWin::output=NULL;
 DWORD WINAPI renderThread(LPVOID lpVariable)
 {
 	CamParams* params = (CamParams*)lpVariable;
-	//OutputWin *output = OutputWin::getOutput();
-	//params->cam = output->getCamera();
-	params->cam->setParams(*params);
-	params->cam->drawScene(NULL);
+	params->cam->setParams(*params, params->threadId);
+	params->cam->drawScene(NULL, params->threadId);
 	return 0;
 }
 
@@ -68,7 +66,7 @@ void OutputWin::outputImage(const char*c)
 	glutInitWindowSize(width, height);
 	glutInit(&winArgc, winArgv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-	glutCreateWindow("example");
+	glutCreateWindow("Render");
 
 	// initialize some OpenGL state
 	myglinit();
@@ -80,20 +78,28 @@ void OutputWin::outputImage(const char*c)
 	glutDisplayFunc(drawfunc);
 	glutKeyboardFunc(keyfunc);
 
-	DWORD myThreadID1, myThreadID2 ;
+	//DWORD myThreadID1, myThreadID2 ;
 	CamParams p1, p2;
+	p1.threadId = 1;
 	p1.xStart = 0;
 	p1.xEnd = width/2;
 	p1.yStart = 0;
 	p1.yEnd = height;
 	p1.cam = camera;
+	p1.currentX = 0;
+	p1.currentY = 0;
+
+	p2.threadId = 2;
 	p2.xStart = width/2;
 	p2.xEnd = width;
 	p2.yStart = 0;
 	p2.yEnd = height;
 	p2.cam = camera;
-	HANDLE myHandle1 = CreateThread(0, 0, renderThread, &p1, 0, &myThreadID1);
-	HANDLE myHandle2 = CreateThread(0, 0, renderThread, &p2, 0, &myThreadID2);
+	p2.currentX = 0;
+	p2.currentY = 0;
+
+	HANDLE myHandle1 = CreateThread(0, 0, renderThread, &p1, 0, 0);
+	HANDLE myHandle2 = CreateThread(0, 0, renderThread, &p2, 0, 0);
 	// start the main glut loop, no code runs after this
 	glutMainLoop();
 

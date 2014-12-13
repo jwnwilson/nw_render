@@ -89,7 +89,7 @@ void JWRT::render()
 				cout<< "rendering frame "<< i<< " out of " << timeLine.fps<< endl;
 				timeLine.setScene(i,&mainScene);
 				camera->initialise(&image);
-				camera->drawScene(&mainScene);
+				camera->drawScene(&mainScene, 0);
 				output->readBuff(image.getColour());
 				output->outputImage("render"+ i);
 			}

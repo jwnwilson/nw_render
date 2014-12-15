@@ -9,13 +9,14 @@ class IlluminationModel
 {
 public:
 	IlluminationModel(void);
+	IlluminationModel(Scene* s){scenePtr=s;}
 	~IlluminationModel(void);
 	void setScene(Scene* s){scenePtr=s;}
-	void setMaterial(Material* m){matPtr=m;}
-	virtual ColourRGB shade(const Ray*,const vector<int>&){return ColourRGB(0,0,0);}
+	//void setMaterial(Material* m){matPtr=m;}
+	virtual ColourRGB shade(const Ray*,const vector<int>&, int &modelNo){return ColourRGB(0,0,0);}
 	
 protected:
-	ColourRGB getTextureCol(const Vertex_R*);
+	ColourRGB getTextureCol(const Vertex_R*, Material *);
 	float getAttenuation(const Vertex_R*,int i);
 	Vector3D getHalfVect(const Vector3D&,const Vector3D&);
 	Vector3D getLightVect(const  Vertex_R*,int i);
@@ -23,5 +24,5 @@ protected:
 	Vector3D getVeiwVect(const  Vertex_R*,const Ray*);
 
 	Scene* scenePtr;
-	Material *matPtr;
+	//Material *matPtr;
 };

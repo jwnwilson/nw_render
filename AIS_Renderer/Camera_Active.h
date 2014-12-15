@@ -9,9 +9,10 @@ class Camera_Active :
 {
 public:
 	Camera_Active(void);
-	void drawScene(Scene*, int threadId);
+	void drawScene(int threadId);
 	void RayBounces(int i);
 	void setBounces(int b){bounces = b;}
+	void setScene(Scene *s);
 	~Camera_Active(void);
 private:
 	int bounces;

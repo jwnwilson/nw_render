@@ -5,6 +5,7 @@
 #include "ColourRGB.h"
 #include "Vertex_R.h"
 #include <vector>
+#include <map>
 
 class RaySystem 
 {
@@ -12,7 +13,7 @@ public:
 	RaySystem(void);
 	~RaySystem(void);
 
-	void initalise(Scene* s,const int& b){scPtr=s;bounces=b;}
+	void initalise(Scene* s,const int& b);
 	ColourRGB rayIntoScene(Ray&);	
 	
 private:
@@ -24,19 +25,20 @@ private:
 	
 
 	// ray shadow functions
-	bool shadowFeeler(const Vertex_R*);
+	vector<int> shadowFeeler(const Vertex_R*);
 	bool softShadow(Light*,const Vertex_R*);
 
 	// ray finding functions
 	Ray getReflectRay(const Ray&);
 	Ray getTransmittedRay(const Ray& ray1,const float& index);
-	void setIlluminationModel(int&);
+	//void setIlluminationModel(int&);
+	IlluminationModel* getIlluminationModel(int&);
 
-	int bounces,bounce,modelNo;
+	int bounces, bounce, modelNo;
 	bool shadows;
 	// stored which lights are visable to current point ray has hit.
-	vector<int> lightsVisible;
+	//vector<int> lightsVisible;
 	// holds illumination of model collised with.
-	IlluminationModel *illum;
+	map<int, IlluminationModel*> illumModels;
 	Scene *scPtr;
 };

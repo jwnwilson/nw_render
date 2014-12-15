@@ -19,6 +19,7 @@ Camera::Camera(void)
 	param.yEnd = height;
 	param.threadId = 0;
 	params[0] = param;
+	ColourPixCount = 0;
 	
 }
 void Camera::initaliseSys()

@@ -17,22 +17,39 @@ RaySystem::RaySystem(void)
 {
 	bounces=1;
 	bounce=0;
-	illum=NULL;
+	//illum=NULL;
 	shadows = true;
 }
 
 RaySystem::~RaySystem(void)
 {
-	if(illum!=NULL)
+	/*if(illum!=NULL)
 	{
 		delete illum;
+	}*/
+	for(std::map<int,IlluminationModel*>::iterator iter = illumModels.begin(); iter != illumModels.end(); ++iter)
+	{
+		if(iter->second !=NULL)
+		{
+			delete iter->second;
+		}
 	}
 }
+
+void RaySystem::initalise(Scene* s,const int& b)
+{
+	scPtr=s;
+	bounces=b;
+	illumModels[PHONGM] = new ModelPhong(s);
+	illumModels[BASICM] = new IlluminationModel(s);
+}
+
 ColourRGB RaySystem::rayIntoScene(Ray& ray1)
 {
 	bounce = 0;
 	return fireRay(ray1);
 }
+
 ColourRGB RaySystem::fireRay(Ray& ray1)
 {
 	int modelNo=0;
@@ -78,12 +95,13 @@ ColourRGB RaySystem::fireRay(Ray& ray1)
 
 ColourRGB RaySystem::rayReturnColour(const Ray& ray1,int& modelNo)
 {
+	vector<int> lightsVisible;
 	if(shadows == true)
 	{
-		shadowFeeler(ray1.pointHit);
+		lightsVisible = shadowFeeler(ray1.pointHit);
 		ColourRGB col;
-		setIlluminationModel(modelNo);
-		col = illum->shade(&ray1,lightsVisible);
+		IlluminationModel* illum = getIlluminationModel(modelNo);
+		col = illum->shade(&ray1,lightsVisible,modelNo);
 		lightsVisible.clear();
 
 		return col;
@@ -95,8 +113,8 @@ ColourRGB RaySystem::rayReturnColour(const Ray& ray1,int& modelNo)
 			lightsVisible.push_back(i);
 		}
 		ColourRGB col;
-		setIlluminationModel(modelNo);
-		col = illum->shade(&ray1,lightsVisible);
+		IlluminationModel* illum = getIlluminationModel(modelNo);
+		col = illum->shade(&ray1,lightsVisible,modelNo);
 		lightsVisible.clear();
 
 		return col;
@@ -141,11 +159,12 @@ bool RaySystem::softShadow(Light* light,const Vertex_R* v)
 	
 }
 
-bool RaySystem::shadowFeeler(const Vertex_R* intersec)
+vector<int> RaySystem::shadowFeeler(const Vertex_R* intersec)
 {
 	Ray ptToLght;
 	int modNo;
 	float t;
+	vector<int> lightsVisible;
 
 	ptToLght.position=intersec->getWorld();
 	vector<Light*> lights = scPtr->lights;
@@ -180,14 +199,7 @@ bool RaySystem::shadowFeeler(const Vertex_R* intersec)
 
 		}
 	}
-	if(lightsVisible.size()>0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return lightsVisible;
 }
 
 Ray RaySystem::getTransmittedRay(const Ray& ray1,const float& n2)
@@ -225,17 +237,33 @@ Ray RaySystem::getReflectRay(const Ray& ray1)
 	ray2.position=ray1.pointHit->getWorld()+ (ray2.getDirection()*0.001);
 	return ray2;
 }
-void  RaySystem::setIlluminationModel(int& modelNo)
+
+IlluminationModel* RaySystem::getIlluminationModel(int& modelNo)
 {
 	switch (scPtr->models[modelNo]->material->getType()){
 		case PHONGM:
-			illum= new ModelPhong;
-			illum->setScene(scPtr);
-			illum->setMaterial(scPtr->models[modelNo]->material);
+			return illumModels[PHONGM];
 			break;
 		default:
-			illum= new IlluminationModel;
+			// 0 will be default model
+			return illumModels[0];
 			break;
 	}
 
 }
+
+/*void  RaySystem::setIlluminationModel(int& modelNo)
+{
+
+	switch (scPtr->models[modelNo]->material->getType()){
+		case PHONGM:
+			IlluminationModel* illum= new ModelPhong;
+			illum->setScene(scPtr);
+			illum->setMaterial(scPtr->models[modelNo]->material);
+			break;
+		default:
+			IlluminationModel* illum= new IlluminationModel;
+			break;
+	}
+
+}*/

@@ -12,7 +12,7 @@ DWORD WINAPI renderThread(LPVOID lpVariable)
 {
 	CamParams* params = (CamParams*)lpVariable;
 	params->cam->setParams(*params, params->threadId);
-	params->cam->drawScene(NULL, params->threadId);
+	params->cam->drawScene(params->threadId);
 	return 0;
 }
 

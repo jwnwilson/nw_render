@@ -25,15 +25,16 @@ void Camera_Active::RayBounces(int i)
 	bounces = i;
 }
 
-void Camera_Active::drawScene(Scene* sc1, int threadId)
+void Camera_Active::setScene(Scene *s)
 {
-	if( sc1 != NULL)
-	{
-		scene = sc1;
-	}
+	scene = s;
 	raySys.initalise(scene,bounces);
 	phongM.setScene(scene);
-	Vertex_R intersec;
+
+}
+
+void Camera_Active::drawScene(int threadId)
+{
 	ColourRGB pixelCol;
 	int division = 1;
 	int w = currentX ,h = currentY;
@@ -82,12 +83,12 @@ void Camera_Active::drawScene(Scene* sc1, int threadId)
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
+			//pixelCol = ColourRGB(1.0,0.0,0.0);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
 	}
-	int percX = (((float(param->currentX) / width) * 100));
-	int percY = (((float(h) / height) * 100)/ division);
- 	cout<< ( numberToString(percX + percY) + "% complete...") << endl;
+	ColourPixCount += ((maxW - param->currentX) * (maxH - param->currentY));
+ 	cout<< ( numberToString(float(ColourPixCount) / (width * height) *100) + "% complete...") << endl;
 	if (w== width && refresh)
 	{
 		param->currentX = 0;

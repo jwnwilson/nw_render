@@ -28,10 +28,10 @@ public:
 	void setScreen(const Vector3D& BL,const Vector3D& BR,const Vector3D& TR,const Vector3D& TL);
 	void translate(const Vector3D& trans);
 	void setTarget(const Vector3D& a);
-	void setScene(Scene *s){scene=s;}
+	virtual void setScene(Scene *s){scene=s;}
 	void setParams(CamParams c, int threadId){params[threadId] = c;}
 	virtual void setBounces(int b){;}
-	virtual void drawScene(Scene* s, int threadId){;}
+	virtual void drawScene(int threadId){;}
 	Ray getRay(int x,int y);
 	
 	//void setScreenRes(int x,int y){width=x;height=y;}
@@ -50,6 +50,7 @@ protected:
 	int currentX, currentY;
 	//CamParams params;
 	map<int,CamParams> params;
+	int ColourPixCount;
 
 
 };

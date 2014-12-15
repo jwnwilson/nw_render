@@ -7,7 +7,7 @@ IlluminationModel::IlluminationModel(void)
 IlluminationModel::~IlluminationModel(void)
 {
 }
-ColourRGB IlluminationModel::getTextureCol(const Vertex_R* v1)
+ColourRGB IlluminationModel::getTextureCol(const Vertex_R* v1, Material *matPtr)
 {
 	Texture* tex = matPtr->getTexture();
 	int u = (v1->getUV().x * (tex->colourBuff.getWidth()-1)), v = (v1->getUV().y * (tex->colourBuff.getHeight()-1));

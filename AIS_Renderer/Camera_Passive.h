@@ -10,7 +10,7 @@ class Camera_Passive :
 {
 public:
 	Camera_Passive(void);
-	void drawScene(Scene*, int threadId);
+	void drawScene(int threadId);
 	~Camera_Passive(void);
 
 private:

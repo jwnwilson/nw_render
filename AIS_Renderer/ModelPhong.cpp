@@ -8,17 +8,18 @@ ModelPhong::~ModelPhong(void)
 {
 }
 
-ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights)
+ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights, int &modelNo)
 {
 	ColourRGB intensity;
 	ColourRGB diffuseCol;
 	ColourRGB sumLights(0,0,0);
 	Vector3D V,lightVect,R;
 	Vertex_R *v= r->pointHit;
+	Material *matPtr = scenePtr->models[modelNo]->material;
 
 	if( matPtr->isTextured() )
 	{
-		diffuseCol = getTextureCol(v);
+		diffuseCol = getTextureCol(v, matPtr);
 	}
 	else
 	{

@@ -83,7 +83,6 @@ void Camera_Active::drawScene(int threadId)
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
-			//pixelCol = ColourRGB(1.0,0.0,0.0);
 			screen->getColour()->setPix(w,h,pixelCol);
 		}
 	}

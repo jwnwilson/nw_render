@@ -8,5 +8,5 @@ public:
 	ModelPhong(void);
 	ModelPhong(Scene* s){scenePtr=s;}
 	~ModelPhong(void);
-	ColourRGB shade(const Ray*,const vector<int>&, int &modelNo);
+	ColourRGB shade(const Ray*,const vector<LightParam>&, int &modelNo);
 };

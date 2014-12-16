@@ -76,10 +76,6 @@ void Camera_Active::drawScene(int threadId)
 	{
 		for(h=param->currentY;h<maxH;h++)
 		{
-			//cout<< "ThreadId: " << threadId;
-			//cout << endl;
-			//cout << "w and h values: " << w << "," << h;
-			//cout << endl;
 			Ray ray1;
 			ray1=getRay(w,h);
 			pixelCol=raySys.rayIntoScene(ray1);
@@ -109,12 +105,6 @@ void Camera_Active::drawScene(int threadId)
 			//currentX = 0;
 		}		
 	}
-	
-	//cout<< "Time to render:"<< endl;
-	//timer = time(NULL);
-	//cout<< float(timer - start)/60 << " minutes." <<endl;
-		//}
-	//}
 
 	return;
 }

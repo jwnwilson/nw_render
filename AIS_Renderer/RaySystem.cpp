@@ -61,17 +61,15 @@ ColourRGB RaySystem::fireRay(Ray& ray1)
 		bounce++;
 		if(scPtr->rayHitModel(&ray1,modelNo)==true)
 		{					
-			//Ray reflect;
-			//reflect = getReflectRay(ray1);
-			//sum= sum + fireRay(reflect);
-			//bounce--;
 			if( scPtr->models[modelNo]->refractionIndex != 0)
 			{
 				Ray refract;
 				refract = getTransmittedRay(ray1,scPtr->models[modelNo]->refractionIndex);
 				sum= sum + (fireRay(refract)*scPtr->models[modelNo]->material->transparency);
 			}
-			else
+			if( scPtr->models[modelNo]->material->reflectivity.getRed() != 0 ||
+				scPtr->models[modelNo]->material->reflectivity.getGreen() != 0 ||
+				scPtr->models[modelNo]->material->reflectivity.getBlue() != 0)
 			{
 				Ray reflect;
 				reflect = getReflectRay(ray1);
@@ -95,14 +93,14 @@ ColourRGB RaySystem::fireRay(Ray& ray1)
 
 ColourRGB RaySystem::rayReturnColour(const Ray& ray1,int& modelNo)
 {
-	vector<int> lightsVisible;
+	vector<LightParam> lightsVisible;
 	if(shadows == true)
 	{
 		lightsVisible = shadowFeeler(ray1.pointHit);
 		ColourRGB col;
 		IlluminationModel* illum = getIlluminationModel(modelNo);
-		col = illum->shade(&ray1,lightsVisible,modelNo);
-		lightsVisible.clear();
+		col = illum->shade(&ray1,lightsVisible, modelNo);
+		//lightsVisible.clear();
 
 		return col;
 	}
@@ -110,12 +108,15 @@ ColourRGB RaySystem::rayReturnColour(const Ray& ray1,int& modelNo)
 	{
 		for(int i=0;i<scPtr->lights.size();i++)
 		{
-			lightsVisible.push_back(i);
+			LightParam lp;
+			lp.lightAttenuation = 1.0;
+			lp.lightIndex = i;
+			lightsVisible.push_back(lp);
 		}
 		ColourRGB col;
 		IlluminationModel* illum = getIlluminationModel(modelNo);
 		col = illum->shade(&ray1,lightsVisible,modelNo);
-		lightsVisible.clear();
+		//lightsVisible.clear();
 
 		return col;
 	}
@@ -159,12 +160,15 @@ bool RaySystem::softShadow(Light* light,const Vertex_R* v)
 	
 }
 
-vector<int> RaySystem::shadowFeeler(const Vertex_R* intersec)
+vector<LightParam> RaySystem::shadowFeeler(const Vertex_R* intersec)
 {
 	Ray ptToLght;
 	int modNo;
 	float t;
-	vector<int> lightsVisible;
+	vector<LightParam> lightsVisible;
+	LightParam lp;
+	lp.lightAttenuation = 1.0;
+	lp.lightIndex = 0;
 
 	ptToLght.position=intersec->getWorld();
 	vector<Light*> lights = scPtr->lights;
@@ -175,7 +179,8 @@ vector<int> RaySystem::shadowFeeler(const Vertex_R* intersec)
 		{
 			if(softShadow(lights[i],intersec))
 			{
-				lightsVisible.push_back(i);
+				lp.lightIndex = i;
+				lightsVisible.push_back(lp);
 			}
 		}
 		else
@@ -185,15 +190,18 @@ vector<int> RaySystem::shadowFeeler(const Vertex_R* intersec)
 			ptToLght.position = ptToLght.position + (ptToLght.getDirection()* 0.0001);
 			if(scPtr->rayHitModel(&ptToLght,modNo)==false)
 			{
-				lightsVisible.push_back(i);
+				lp.lightIndex = i;
+				lightsVisible.push_back(lp);
 			}
 			else
 			{
 				if(scPtr->models[modNo]->material->transparency != ColourRGB(0,0,0))
 				{
 					float atten = scPtr->models[modNo]->material->transparency.getRed();
-					lights[i]->setAtten( Vector3D(atten,0,0) );
-					lightsVisible.push_back(i);
+					//lights[i]->setAtten( Vector3D(atten,0,0) );
+					lp.lightIndex = i;
+					lp.lightAttenuation = atten;
+					lightsVisible.push_back(lp);
 				}
 			}
 
@@ -215,7 +223,7 @@ Ray RaySystem::getTransmittedRay(const Ray& ray1,const float& n2)
 
 	float c1 = -ray1.getDirection().dot(ray1.pointHit->getNorm());
 
-	float n1 = ray1.refractIndex,n;
+	float n1 = ray1.refractIndex, n;
 
 	n = n1 / n2;
 

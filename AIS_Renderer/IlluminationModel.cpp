@@ -42,19 +42,23 @@ Vector3D IlluminationModel::getReflectVect(const  Vertex_R* vertex1,int i)
 	return reflectVect;
 }
 
-float IlluminationModel::getAttenuation(const  Vertex_R* v, int i)
+float IlluminationModel::getAttenuation(const  Vertex_R* v, LightParam lp)
 {
 	float attenuation=0;
+	int i = lp.lightIndex;
 	Vector4D vecPos;
 	vecPos= v->getWorld();
 	if( scenePtr->lights[i]->isArea())
 	{
-		attenuation = scenePtr->lights[i]->getAttenCo().x;
+		//attenuation = scenePtr->lights[i]->getAttenCo().x;
+		attenuation = lp.lightAttenuation;
 	}
 	if( scenePtr->lights[i]->isPoint())
 	{
 		float distance = ((scenePtr->lights[i]->getPosition()-vecPos).modulus());
-		attenuation= 1/((scenePtr->lights[i]->getAttenCo().x)+(scenePtr->lights[i]->getAttenCo().y*distance)+
+		//attenuation= 1/((scenePtr->lights[i]->getAttenCo().x)+(scenePtr->lights[i]->getAttenCo().y*distance)+
+		//	(scenePtr->lights[i]->getAttenCo().z*(distance*distance)));
+		attenuation = 1/((lp.lightAttenuation)+(scenePtr->lights[i]->getAttenCo().y*distance)+
 			(scenePtr->lights[i]->getAttenCo().z*(distance*distance)));
 	}
 	if(scenePtr->lights[i]->isSpot())
@@ -78,8 +82,10 @@ float IlluminationModel::getAttenuation(const  Vertex_R* v, int i)
 				}
 			}
 			float distance = ((scenePtr->lights[i]->getPosition()-vecPos).modulus());
-			attenuation*=(1/(scenePtr->lights[i]->getAttenCo().x+(scenePtr->lights[i]->getAttenCo().y*distance)+
-				(scenePtr->lights[i]->getAttenCo().z*(distance*distance))));
+			//attenuation*=(1/(scenePtr->lights[i]->getAttenCo().x+(scenePtr->lights[i]->getAttenCo().y*distance)+
+			//	(scenePtr->lights[i]->getAttenCo().z*(distance*distance))));
+			attenuation = 1/((lp.lightAttenuation)+(scenePtr->lights[i]->getAttenCo().y*distance)+
+			(scenePtr->lights[i]->getAttenCo().z*(distance*distance)));
 		}
 		else
 		{

@@ -8,7 +8,7 @@ ModelPhong::~ModelPhong(void)
 {
 }
 
-ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights, int &modelNo)
+ColourRGB ModelPhong::shade(const Ray* r,const vector<LightParam>& lights, int &modelNo)
 {
 	ColourRGB intensity;
 	ColourRGB diffuseCol;
@@ -30,7 +30,7 @@ ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights, int &modelNo
 	int size=lights.size();
 	for(int i=0;i<size;i++)
 	{
-		lightVect=getLightVect(v,lights[i]);//.normalize();
+		lightVect=getLightVect(v,lights[i].lightIndex);//.normalize();
 
 		float LdotN=(lightVect.dot(v->getNorm())),RVn,attenuation;
 		if(LdotN<0)
@@ -38,7 +38,7 @@ ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights, int &modelNo
 			LdotN=0;
 		}
 		attenuation =getAttenuation(v,lights[i]);
-		R=getReflectVect(v,lights[i]);
+		R=getReflectVect(v,lights[i].lightIndex);
 		V=getVeiwVect(v,r);
 
 		RVn=(R.dot(V));
@@ -55,7 +55,7 @@ ColourRGB ModelPhong::shade(const Ray* r,const vector<int>& lights, int &modelNo
 			}
 		}
 
-		sumLights=sumLights+(scenePtr->lights[lights[i]]->getColour()*((diffuseCol*LdotN)
+		sumLights=sumLights+(scenePtr->lights[lights[i].lightIndex]->getColour()*((diffuseCol*LdotN)
 			+(matPtr->getSpecularC()*RVn)))*attenuation;
 
 		

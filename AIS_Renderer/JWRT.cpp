@@ -128,7 +128,6 @@ void JWRT::setScene(int i)
 			
 			mat1->setTexture(text);
 
-
 			mesh = new ModelAdv;
 			mesh1 = new ModelAdv;
 			mesh2 = new ModelAdv;
@@ -237,14 +236,14 @@ void JWRT::setScene(int i)
 			mesh1 = new ModelAdv;
 			mesh2 = new ModelAdv;
 
-			modelSys.createSphere(1,Vector3D(-1.5,-0.5,0),mesh);
+			modelSys.createSphere(1,Vector3D(-1.5,-0.5,1),mesh);
 			mesh->material=mat2;
 			mesh->implicit=true;
 
 			modelSys.createCube(2,Vector3D(0,0,0),mesh1);
 			modelSys.rotate(mesh1,Vector3D(45,0,0));
 			modelSys.rotate(mesh1,Vector3D(0,45,0));
-			modelSys.translate(mesh1,Vector3D(2,-1,0));
+			modelSys.translate(mesh1,Vector3D(2,0,1));
 			mesh1->material=mat2;
 			
 			modelSys.createPlane(10,10,Vector3D(0,0,2),mesh2);

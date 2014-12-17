@@ -27,7 +27,7 @@ private:
 
 	// ray shadow functions
 	vector<LightParam> shadowFeeler(const Vertex_R*);
-	bool softShadow(Light*,const Vertex_R*);
+	float softShadow(Light*,const Vertex_R*);
 
 	// ray finding functions
 	Ray getReflectRay(const Ray&);

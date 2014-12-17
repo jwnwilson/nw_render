@@ -121,12 +121,12 @@ ColourRGB RaySystem::rayReturnColour(const Ray& ray1,int& modelNo)
 		return col;
 	}
 }
-bool RaySystem::softShadow(Light* light,const Vertex_R* v)
+float RaySystem::softShadow(Light* light,const Vertex_R* v)
 {
 	int seg = light->getSegments();
 	int modNo;
 	int hitCount =0;
-	float atten, randFlo;
+	float atten = 0.0, randFlo;
 	vector<Vector3D> *segmentPoints;
 
 	segmentPoints = light->getSegmentPos();
@@ -148,14 +148,13 @@ bool RaySystem::softShadow(Light* light,const Vertex_R* v)
 	}
 	if( hitCount > 0)
 	{
-		atten = hitCount /float(seg);
-		light->setAtten( Vector3D(atten,0,0) );
-		return true;
+		atten = hitCount / float(seg);
+		//light->setAtten( Vector3D(atten,0,0) );
+		return atten;
 	}
 	else
 	{
-		light->setAtten( Vector3D(0,0,0) );
-		return false;
+		return atten;
 	}
 	
 }
@@ -167,17 +166,18 @@ vector<LightParam> RaySystem::shadowFeeler(const Vertex_R* intersec)
 	float t;
 	vector<LightParam> lightsVisible;
 	LightParam lp;
-	lp.lightAttenuation = 1.0;
-	lp.lightIndex = 0;
 
 	ptToLght.position=intersec->getWorld();
 	vector<Light*> lights = scPtr->lights;
 
 	for(int i=0;i<lights.size();i++)
 	{
+		lp.lightAttenuation = 1.0;
+		lp.lightIndex = 0;
 		if(lights[i]->isArea())
 		{
-			if(softShadow(lights[i],intersec))
+			lp.lightAttenuation = softShadow(lights[i],intersec);
+			if(lp.lightAttenuation > 0)
 			{
 				lp.lightIndex = i;
 				lightsVisible.push_back(lp);

@@ -21,6 +21,7 @@ public:
 	Vector2D getUV()const{return *uv;}
 	Vector3D getWorld()const{return *worldPos;}
 	Vector4D getNorm()const{return *normal;}
+	int getId()const{return id;}
 
 	Vector2D *uv;
 	Vector3D *worldPos;
@@ -32,4 +33,5 @@ public:
 	VertexSD *child;
 	bool regular, boundary;
 	int subDlevel;
+	int id;
 };

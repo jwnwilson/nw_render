@@ -20,6 +20,8 @@ Model::Model(void)
 
 	implicit=false;
 	smooth = true;
+	childModel = NULL;
+	parentModel = NULL;
 }
 
 Model::~Model(void)
@@ -28,4 +30,23 @@ Model::~Model(void)
 	{
 		delete boundingShape;
 	}
+	if(childModel != NULL)
+	{
+		delete childModel;
+		childModel = NULL;
+	}
+}
+
+void Model::operator=(Model& m)
+{
+	implicit = m.implicit;
+	smooth = m.smooth;
+	visible = m.visible;
+	subD = m.subD;
+	type = m.type;
+	refractionIndex = m.refractionIndex;
+
+	parameters = m.parameters;
+	material = m.material;
+	boundingShape = m.boundingShape;
 }

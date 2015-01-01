@@ -150,13 +150,22 @@ void ObjReader::invertPolygons()
 bool ObjReader::storeFace(vector<string> &data)
 {
 	Face *f = new Face;
+	vector<VertexSD> *verts = modPtr->getSDVertices();
+	VertexSD *v;
 	for(int i =1;i<data.size();i++)
 	{
+		//verts->push_back(VertexSD());
+		//v = &(*verts)[verts->size() - 1];
 		vector<int> ind = getInts(data[i]);
 		f->vertexPos.push_back(&(*vertPos)[ind[0]-1]);
 		f->vertexNorm.push_back(&(*vertNorm)[ind[2]-1]);
 		f->vertexUV.push_back(&(*vertUV)[ind[1]-1]);
 		indices->push_back(ind[0]-1);
+		//v->setWorld(&(*vertPos)[ind[0]-1]);
+		//v->setNorm(&(*vertNorm)[ind[2]-1]);
+		//v->setUV(&(*vertUV)[ind[1]-1]);
+		//v->startFace = f;
+		//f->v[i-1] = v;
 	}
 	faces->push_back(f);
 	indices->push_back(-1);

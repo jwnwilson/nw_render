@@ -327,8 +327,6 @@ void JWRT::setScene(int i)
 
 			mesh2 = new ModelAdv;
 
-
-			
 			modelSys.createPlane(10,10,Vector3D(0,0,2),mesh2);
 			modelSys.rotate(mesh2,Vector3D(90,0,0));
 			modelSys.translate(mesh2,Vector3D(0,0,10));	
@@ -337,14 +335,18 @@ void JWRT::setScene(int i)
 			light1= new LightSpot;
 			light1->setAngle(180);
 			light1->setColour(ColourRGB(1,1,1));
-			light1->setPosition(Vector3D(0,3,0));
+			light1->setPosition(Vector3D(0,3,-1));
 			light1->setInterest(Vector3D(0,0,0));
 			light1->setAtten(Vector3D(1,0,0));
 
 			reader.scPtr = &mainScene;
 			reader.readFile("cube.obj");
+			//mainScene.models[0]->material = mat2;
+			mainScene.models[0]->boundingShape = new ImplicitSphere();
+			mainScene.models[0]->parameters.radius = 2;
+			mainScene.models[0]->parameters.position = Vector3D(0,0,0);
+			mainScene.models[0]->boundingShape->setPoints(mainScene.models[0]);
 			modelSys.LoopSubD(mainScene.models[0],1);
-			mainScene.models[0]->material = mat2;
 			mainScene.models.push_back(mesh2);
 			mainScene.lights.push_back(light1);
 			mainScene.materials.push_back(mat1);

@@ -7,6 +7,7 @@
 #include "EdgeSD.h"
 #include <set>
 #include <map>
+#include <array>
 
 #define NEXT(i) (((i)+1)%3)
 #define PREV(i) (((i)+2)%3)
@@ -100,7 +101,7 @@ bool ModelSys::prepareForSubD(Model* mod)
 	vector<int> tempInts;
 	for(int i=0;i<mod->getFaces()->size();i++)
 	{
-		FacesToTriangles((*mod->getFaces())[i],tempfaces );
+		FacesToTriangles((*mod->getFaces())[i], tempfaces );
 		delete (*mod->getFaces())[i];
 		(*mod->getFaces())[i] = NULL;
 	}
@@ -140,6 +141,7 @@ bool ModelSys::prepareForSubD(Model* mod)
 	{
 		VertexSD v;
 		v.worldPos = &(*mod->getPositions())[i];
+		v.normal = NULL;
 		mod->getSDVertices()->push_back(v);
 		
 	}
@@ -150,7 +152,8 @@ bool ModelSys::prepareForSubD(Model* mod)
 		Face *f = (*mod->getFaces())[i];
 		for(int a=0;a<3;a++)
 		{
-			VertexSD *v = &(*mod->getSDVertices())[(*mod->getIndex())[currentFace+a]];
+			int vertIndex = (*mod->getIndex())[currentFace+a];
+			VertexSD *v = &(*mod->getSDVertices())[vertIndex];
 			f->v[a] = v;
 			v->startFace = f;
 		}
@@ -208,37 +211,156 @@ bool ModelSys::prepareForSubD(Model* mod)
 	}
 
 	return true;
-
-
 }
 bool ModelSys::subDModel(Model* mod)
 {
 	//allocate new vertices and faces
 	int VertsSize = mod->getSDVertices()->size();
-
+	map<array<int,2>, array<int,3>> newVertIndices;
 	mod->increaseSubD();
 
 	origFaces = mod->getFaces();
-	origFaces--;
 	origPos = mod->getPositions();
-	origPos--;
 	origVerts = mod->getSDVertices();
-	origVerts--;
+	origNorm = mod->getNormals();
 	origIndex = mod->getIndex();
+	origEdges = mod->getEdges();
+	origUv = mod->getUVs();
+	origPos--;
+	origFaces--;
 	origIndex--;
+	origVerts--;
+	origEdges--;
+	origNorm--;
 
-	for(int i=0; i< VertsSize;i++)
+	//copy existing vertices
+	/*for(int i=0; i< VertsSize;i++)
 	{
+		VertexSD *vert = &(*origVerts)[i];
+		// calculate new position
+		Vector3D pos = vert->getWorld();
+		// calculate new normal
+		Vector4D norm = vert->getNorm();
+		// calculate new uv
+		Vector2D uv = vert->getUV();
+
+		mod->getPositions()->push_back(pos);
+		mod->getNormals()->push_back(norm);
+		mod->getUVs()->push_back(uv);
+
 		mod->getSDVertices()->push_back(VertexSD());
 		VertexSD *v = &(*mod->getSDVertices())[mod->getSDVertices()->size()-1];
 		v->boundary = (*origVerts)[i].boundary;
 		v->regular = (*origVerts)[i].regular;
-	}
 
+		v->setNorm(&(*mod->getNormals())[(mod->getNormals()->size()-1)]);
+		v->setWorld(&(*mod->getPositions())[(mod->getPositions()->size()-1)]);
+		v->setUV(&(*mod->getUVs())[(mod->getPositions()->size()-1)]);
+	}*/
+
+	// copy existings positions, normals, uvs	
+	for(int i=0; i< origPos->size();i++)
+	{
+		mod->getPositions()->push_back((*origPos)[i]);
+	}
+	for(int i=0; i< origNorm->size();i++)
+	{
+		mod->getNormals()->push_back((*origNorm)[i]);
+	}
+	for(int i=0; i< origUv->size();i++)
+	{
+		mod->getUVs()->push_back((*origUv)[i]);
+	}
+	// Create new positions, normals, uvs and positions
+	// TODO: use faces and then get the position/ normal and uv for each vert for each face.
+
+	// Loop through each original indices and create new indices for each one, so each set should 
+	// create 4 more sets ( as each triangle is broken into 4 new ones)
+
+	// For each new point save it in model vector if it doesn't already exist, use a map and vertex ids
+	// to achieve this efficiently
 	for(int i=0; i< origFaces->size();i++)
 	{
-		for(int j=0;j<4;j++)
+		Face *currentFace = (*origFaces)[i];
+		vector<array<int,3>> newVertexIndex;
+
+		// create new faces from original
+		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
+			int nextVert = j++;
+			if(nextVert > currentFace->vertexPos.size())
+				nextVert = 0;
+			int v1Id, v2Id;
+			v1Id = currentFace->v[j]->id;
+			v2Id = currentFace->v[nextVert]->id;
+			// if vert already created then just store the correct indices for this vert 
+			array<int,2> VertIds = {v1Id,v2Id};
+			array<int,2> VertIdsRev = {v2Id,v1Id};
+			if(newVertIndices.count(VertIds))
+			{
+				newVertexIndex.push_back(newVertIndices[VertIds]);
+				break;
+			}
+			if(newVertIndices.count(VertIdsRev))
+			{
+				newVertexIndex.push_back(newVertIndices[VertIdsRev]);
+				break;
+			}
+			Vector4D *n1 = currentFace->vertexNorm[j];
+			Vector4D *n2 = currentFace->vertexNorm[nextVert];
+			Vector2D *uv1 = currentFace->vertexUV[j];
+			Vector2D *uv2 = currentFace->vertexUV[nextVert];
+			// calculate new position
+			Vector3D pos = (*currentFace->vertexPos[j] + *currentFace->vertexPos[nextVert]) / 2;
+			// calculate new normal
+			//Vector4D norm = (*currentFace->vertexNorm[j] + *currentFace->vertexNorm[nextVert]) / 2;
+			Vector4D norm = (*n1 + *n2) / 2;
+			// calculate new uv
+			//Vector2D uv = (*currentFace->vertexUV[j] + *currentFace->vertexUV[nextVert]) / 2;
+			Vector2D uv = (*uv1 + *uv2) / 2;
+			// create new vertex
+			VertexSD vert = VertexSD();
+			vert.boundary = false;
+			vert.regular = true;
+
+			mod->getPositions()->push_back(pos);
+			mod->getNormals()->push_back(norm);
+			mod->getUVs()->push_back(uv);
+
+			int posIndex = (mod->getPositions()->size()-1);
+			int normIndex = (mod->getNormals()->size()-1);
+			int uvIndex = (mod->getUVs()->size()-1);
+
+			//vert.setNorm(&(*mod->getNormals())[(mod->getNormals()->size()-1)]);
+			vert.setWorld(&(*mod->getPositions())[posIndex]);
+			//vert.setUV(&(*mod->getUVs())[(mod->getPositions()->size()-1)]);
+
+			mod->getSDVertices()->push_back(vert);
+			// store this verts position index, normal index and uv index
+			array<int,3> vertIndices = {posIndex,normIndex,uvIndex};
+			newVertexIndex.push_back(vertIndices);
+			newVertIndices[VertIds] = vertIndices;
+		}
+		// create new face from new position, normal and uv indices created above.
+		// create new indices for new faces
+
+		// get indices of each position, uv and normal for existing points of face, create list of indices for each point
+		// using these indices
+		for(int j=0;j<currentFace->vertexPos.size();j++)
+		{
+			currentFace->vertPosIndex = getPositionIndex((*vertPos)[i]);
+			currentFace->vertNormIndex = getNormalIndex((*vertNorm)[i]);
+			currentFace->vertUvIndex = getUvIndex((*vertUv)[i]);
+		}
+
+		// vertPos[0] -> newPos[0] -> newPos[2]
+		// newPos[1] -> vertPos[1] -> newPos[1]
+		// newPos[1] -> vertPos[2] -> newPos[2]
+		// newPos[2] -> newPos[1] -> newPos[0]
+
+		// use indicies for each point to build new faces
+		for(int j=0;j<4;j++)
+		{	
 			Face *f = new FaceSD();
 			(*origFaces)[i]->children[j] = f;
 			mod->getFaces()->push_back(f);

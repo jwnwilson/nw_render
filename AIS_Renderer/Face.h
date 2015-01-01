@@ -32,6 +32,10 @@ public:
 	vector<Vector4D*> vertexNorm;
 	vector<Vector2D*> vertexUV;
 
+	vector<int> vertPosIndex;
+	vector<int> vertNormIndex;
+	vector<int> vertUvIndex;
+
 	Face *f[3];
 	Face *children[4];
 	VertexSD *v[3];

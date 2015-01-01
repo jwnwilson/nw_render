@@ -7,6 +7,7 @@
 #include "ImplicitShape.h"
 #include "Intersection.h"
 #include "Face.h"
+#include "EdgeSD.h"
 
 struct ModelParam
 {
@@ -27,7 +28,7 @@ class Model
 public:
 	Model(void);
 	~Model(void);
-	//void operator=(Model&);
+	virtual void operator=(Model&);
 
 	int getType(){return type;}
 	virtual bool rayAgaintModel(Ray*,float &t)=0;
@@ -53,6 +54,12 @@ public:
 	virtual int getVerticesSize()const{return NULL;}
 	virtual void increaseSubD(){;}
 	virtual void decreaseSubD(){;}
+	virtual vector<EdgeSD>* getEdges(){return NULL;}
+
+	Model* getChildModel()const{return childModel;}
+	Model* getParentModel()const{return parentModel;}
+	void setChildModel(Model* m){childModel = m;}
+	void setParentModel(Model* m){parentModel = m;}
 
 	bool implicit,smooth,visible;
 	int subD;
@@ -62,4 +69,6 @@ public:
 	ModelParam parameters;
 	Material* material;
 	ImplicitShape* boundingShape;
+	Model* parentModel;
+	Model* childModel;
 };

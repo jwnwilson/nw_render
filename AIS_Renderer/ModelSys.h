@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "ModelAdv.h"
 
 class ModelSys
 {
@@ -13,8 +13,6 @@ public:
 	void rotate(Model*,Vector3D rot);
 	void scale(Model*,Vector3D rot);
 
-	
-
 	bool LoopSubD(Model*, int subD);
 
 	~ModelSys(void);
@@ -23,8 +21,11 @@ private:
 
 	vector<Face*> *origFaces;
 	vector<Vector3D> *origPos;
+	vector<Vector4D> *origNorm;
+	vector<Vector2D> *origUv;
 	vector<VertexSD> *origVerts;
 	vector<int> *origIndex;
+	vector<EdgeSD> *origEdges;
 
 	static float beta(int val);
 	bool subDModel(Model* mod);

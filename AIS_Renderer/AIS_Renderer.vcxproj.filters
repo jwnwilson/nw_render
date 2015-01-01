@@ -78,9 +78,6 @@
     <ClCompile Include="JWRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KeyFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -214,6 +211,9 @@
       <Filter>Source Files\Illumination models</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Viewing system</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyFrame.cpp">
       <Filter>Source Files\Viewing system</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,8 @@
 #include "VertexSD.h"
 #include "Face.h"
 
+static int vertexId=0;
+
 VertexSD::VertexSD(void)
 {
 	startFace = NULL;
@@ -8,6 +10,8 @@ VertexSD::VertexSD(void)
 	uv = NULL;
 	worldPos = NULL;
 	normal = NULL;
+	vertexId++;
+	id = vertexId;
 }
 
 VertexSD::~VertexSD(void)

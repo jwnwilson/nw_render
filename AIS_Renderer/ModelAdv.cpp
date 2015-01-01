@@ -9,6 +9,7 @@ ModelAdv::ModelAdv(void)
 	vector<VertexSD> ve;	
 	vector<Vector4D> n;
 	vector<Vector2D> u;
+	vector<EdgeSD> ed;
 
 	positions.push_back(v);
 	normals.push_back(n);
@@ -16,6 +17,9 @@ ModelAdv::ModelAdv(void)
 	faces.push_back(f);
 	Index.push_back(i);
 	Vertices.push_back(ve);
+	subDEdges.push_back(ed);
+	parentModel = NULL;
+	childModel = NULL;
 }
 
 ModelAdv::~ModelAdv(void)
@@ -28,6 +32,18 @@ ModelAdv::~ModelAdv(void)
 				delete faces[i][j];
 		}
 	}
+}
+
+void ModelAdv::operator=(ModelAdv& m)
+{
+	Model::operator=(m);
+	positions = m.positions;
+	normals = m.normals;
+	UVs = m.UVs;
+	faces = m.faces;
+	Index = m.Index;
+	Vertices = m.Vertices;
+	subDEdges = m.subDEdges;;
 }
 
 bool ModelAdv::rayAgaintModel(Ray* r,float &t)
@@ -129,6 +145,9 @@ void ModelAdv::increaseSubD()
 
 		vector<VertexSD> ve;
 		Vertices.push_back(ve);
+
+		vector<EdgeSD> ed;
+		subDEdges.push_back(ed);
 	}
 	
 }

@@ -318,6 +318,7 @@ bool ModelSys::subDModel(Model* mod)
 		// create new faces from original
 		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
+			bool skipVert = false;
 			int nextVert = j+1;
 			if(nextVert >= currentFace->vertexPos.size())
 				nextVert = 0;
@@ -330,47 +331,51 @@ bool ModelSys::subDModel(Model* mod)
 			if(newVertIndices.count(VertIds))
 			{
 				newVertexIndex.push_back(newVertIndices[VertIds]);
-				break;
+				skipVert = true;
 			}
 			if(newVertIndices.count(VertIdsRev))
 			{
 				newVertexIndex.push_back(newVertIndices[VertIdsRev]);
-				break;
+				skipVert = true;
 			}
-			Vector4D *n1 = currentFace->vertexNorm[j];
-			Vector4D *n2 = currentFace->vertexNorm[nextVert];
-			Vector2D *uv1 = currentFace->vertexUV[j];
-			Vector2D *uv2 = currentFace->vertexUV[nextVert];
-			// calculate new position
-			Vector3D pos = (*currentFace->vertexPos[j] + *currentFace->vertexPos[nextVert]) / 2;
-			// calculate new normal
-			//Vector4D norm = (*currentFace->vertexNorm[j] + *currentFace->vertexNorm[nextVert]) / 2;
-			Vector4D norm = (*n1 + *n2) / 2;
-			// calculate new uv
-			//Vector2D uv = (*currentFace->vertexUV[j] + *currentFace->vertexUV[nextVert]) / 2;
-			Vector2D uv = (*uv1 + *uv2) / 2;
-			// create new vertex
-			VertexSD vert = VertexSD();
-			vert.boundary = false;
-			vert.regular = true;
 
-			mod->getPositions()->push_back(pos);
-			mod->getNormals()->push_back(norm);
-			mod->getUVs()->push_back(uv);
+			if(skipVert == false)
+			{
+				Vector4D *n1 = currentFace->vertexNorm[j];
+				Vector4D *n2 = currentFace->vertexNorm[nextVert];
+				Vector2D *uv1 = currentFace->vertexUV[j];
+				Vector2D *uv2 = currentFace->vertexUV[nextVert];
+				// calculate new position
+				Vector3D pos = (*currentFace->vertexPos[j] + *currentFace->vertexPos[nextVert]) / 2;
+				// calculate new normal
+				//Vector4D norm = (*currentFace->vertexNorm[j] + *currentFace->vertexNorm[nextVert]) / 2;
+				Vector4D norm = (*n1 + *n2) / 2;
+				// calculate new uv
+				//Vector2D uv = (*currentFace->vertexUV[j] + *currentFace->vertexUV[nextVert]) / 2;
+				Vector2D uv = (*uv1 + *uv2) / 2;
+				// create new vertex
+				VertexSD vert = VertexSD();
+				vert.boundary = false;
+				vert.regular = true;
 
-			int posIndex = (mod->getPositions()->size()-1);
-			int normIndex = (mod->getNormals()->size()-1);
-			int uvIndex = (mod->getUVs()->size()-1);
+				mod->getPositions()->push_back(pos);
+				mod->getNormals()->push_back(norm);
+				mod->getUVs()->push_back(uv);
 
-			//vert.setNorm(&(*mod->getNormals())[(mod->getNormals()->size()-1)]);
-			vert.setWorld(&(*mod->getPositions())[posIndex]);
-			//vert.setUV(&(*mod->getUVs())[(mod->getPositions()->size()-1)]);
+				int posIndex = (mod->getPositions()->size()-1);
+				int normIndex = (mod->getNormals()->size()-1);
+				int uvIndex = (mod->getUVs()->size()-1);
 
-			mod->getSDVertices()->push_back(vert);
-			// store this verts position index, normal index and uv index
-			array<int,3> vertIndices = {posIndex,normIndex,uvIndex};
-			newVertexIndex.push_back(vertIndices);
-			newVertIndices[VertIds] = vertIndices;
+				//vert.setNorm(&(*mod->getNormals())[(mod->getNormals()->size()-1)]);
+				vert.setWorld(&(*mod->getPositions())[posIndex]);
+				//vert.setUV(&(*mod->getUVs())[(mod->getPositions()->size()-1)]);
+
+				mod->getSDVertices()->push_back(vert);
+				// store this verts position index, normal index and uv index
+				array<int,3> vertIndices = {posIndex,normIndex,uvIndex};
+				newVertexIndex.push_back(vertIndices);
+				newVertIndices[VertIds] = vertIndices;
+			}
 		}
 		// create new face from new position, normal and uv indices created above.
 		// create new indices for new faces

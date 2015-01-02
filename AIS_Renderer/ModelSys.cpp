@@ -212,6 +212,37 @@ bool ModelSys::prepareForSubD(Model* mod)
 
 	return true;
 }
+
+int ModelSys::getPositionIndex(Model* m, Vector3D* p)
+{
+	for(int i=0;i<m->getPositions()->size();i++)
+	{
+		if(&(*m->getPositions())[i] == p)
+			return i;
+	}
+	return -1;
+}
+
+int ModelSys::getNormalIndex(Model* m, Vector4D* n)
+{
+	for(int i=0;i<m->getNormals()->size();i++)
+	{
+		if(&(*m->getNormals())[i] == n)
+			return i;
+	}
+	return -1;
+}
+
+int ModelSys::getUvIndex(Model* m, Vector2D* uv)
+{
+	for(int i=0;i<m->getUVs()->size();i++)
+	{
+		if(&(*m->getUVs())[i] == uv)
+			return i;
+	}
+	return -1;
+}
+
 bool ModelSys::subDModel(Model* mod)
 {
 	//allocate new vertices and faces
@@ -287,8 +318,8 @@ bool ModelSys::subDModel(Model* mod)
 		// create new faces from original
 		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
-			int nextVert = j++;
-			if(nextVert > currentFace->vertexPos.size())
+			int nextVert = j+1;
+			if(nextVert >= currentFace->vertexPos.size())
 				nextVert = 0;
 			int v1Id, v2Id;
 			v1Id = currentFace->v[j]->id;
@@ -348,15 +379,10 @@ bool ModelSys::subDModel(Model* mod)
 		// using these indices
 		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
-			currentFace->vertPosIndex = getPositionIndex((*vertPos)[i]);
-			currentFace->vertNormIndex = getNormalIndex((*vertNorm)[i]);
-			currentFace->vertUvIndex = getUvIndex((*vertUv)[i]);
+			currentFace->vertPosIndex.push_back(getPositionIndex(mod,currentFace->vertexPos[i]));
+			currentFace->vertNormIndex.push_back(getNormalIndex(mod,currentFace->vertexNorm[i]));
+			currentFace->vertUvIndex.push_back(getUvIndex(mod,currentFace->vertexUV[i]));
 		}
-
-		// vertPos[0] -> newPos[0] -> newPos[2]
-		// newPos[1] -> vertPos[1] -> newPos[1]
-		// newPos[1] -> vertPos[2] -> newPos[2]
-		// newPos[2] -> newPos[1] -> newPos[0]
 
 		// use indicies for each point to build new faces
 		for(int j=0;j<4;j++)
@@ -365,6 +391,87 @@ bool ModelSys::subDModel(Model* mod)
 			(*origFaces)[i]->children[j] = f;
 			mod->getFaces()->push_back(f);
 		}
+
+		// Hard coding setting new face values until it can be cleaned up
+
+		// vertPos[0] -> newPos[0] -> newPos[2]
+		Face *f = (*mod->getFaces())[mod->getFaces()->size()-4];
+		f->vertexPos.push_back(currentFace->vertexPos[0]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[0][0]]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[2][0]]);
+
+		f->vertexNorm.push_back(currentFace->vertexNorm[0]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[0][1]]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[2][1]]);
+
+		f->vertexUV.push_back(currentFace->vertexUV[0]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
+
+		mod->getIndex()->push_back(currentFace->vertPosIndex[0]);
+		mod->getIndex()->push_back(newVertexIndex[0][0]);
+		mod->getIndex()->push_back(newVertexIndex[2][0]);
+		mod->getIndex()->push_back(-1);
+
+		// newPos[0] -> vertPos[1] -> newPos[1]
+
+		f = (*mod->getFaces())[mod->getFaces()->size()-3];
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[0][0]]);
+		f->vertexPos.push_back(currentFace->vertexPos[1]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[1][0]]);
+
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[0][1]]);
+		f->vertexNorm.push_back(currentFace->vertexNorm[1]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[1][1]]);
+		
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
+		f->vertexUV.push_back(currentFace->vertexUV[1]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[1][2]]);
+
+		mod->getIndex()->push_back(newVertexIndex[0][0]);
+		mod->getIndex()->push_back(currentFace->vertPosIndex[1]);
+		mod->getIndex()->push_back(newVertexIndex[1][0]);
+		mod->getIndex()->push_back(-1);
+
+		// newPos[1] -> vertPos[2] -> newPos[2]
+		
+		f = (*mod->getFaces())[mod->getFaces()->size()-2];
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[1][0]]);
+		f->vertexPos.push_back(currentFace->vertexPos[2]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[2][0]]);
+
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[1][1]]);
+		f->vertexNorm.push_back(currentFace->vertexNorm[2]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[2][1]]);
+		
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[1][2]]);
+		f->vertexUV.push_back(currentFace->vertexUV[2]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
+
+		mod->getIndex()->push_back(newVertexIndex[1][0]);
+		mod->getIndex()->push_back(currentFace->vertPosIndex[2]);
+		mod->getIndex()->push_back(newVertexIndex[2][0]);
+		mod->getIndex()->push_back(-1);
+		
+		// newPos[2] -> newPos[1] -> newPos[0]
+
+		f = (*mod->getFaces())[mod->getFaces()->size()-2];
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[2][0]]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[1][0]]);
+		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[0][0]]);
+
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[2][1]]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[1][1]]);
+		f->vertexNorm.push_back(&(*mod->getNormals())[newVertexIndex[0][1]]);
+		
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[1][2]]);
+		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
+
+		mod->getIndex()->push_back(newVertexIndex[2][0]);
+		mod->getIndex()->push_back(newVertexIndex[1][0]);
+		mod->getIndex()->push_back(newVertexIndex[0][0]);
+		mod->getIndex()->push_back(-1);
 	}
 
 	// update original vertex normals

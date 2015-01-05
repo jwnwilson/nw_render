@@ -310,11 +310,11 @@ bool ModelSys::subDModel(Model* mod)
 
 	// For each new point save it in model vector if it doesn't already exist, use a map and vertex ids
 	// to achieve this efficiently
+	vector<array<int,3>> newVertexIndex;
+	map<int,int> vertIdToPosIndex;
 	for(int i=0; i< origFaces->size();i++)
 	{
 		Face *currentFace = (*origFaces)[i];
-		vector<array<int,3>> newVertexIndex;
-
 		// create new faces from original
 		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
@@ -367,19 +367,21 @@ bool ModelSys::subDModel(Model* mod)
 				int uvIndex = (mod->getUVs()->size()-1);
 
 				//vert.setNorm(&(*mod->getNormals())[(mod->getNormals()->size()-1)]);
-				vert.setWorld(&(*mod->getPositions())[posIndex]);
+				//vert.setWorld(&(*mod->getPositions())[posIndex]);
 				//vert.setUV(&(*mod->getUVs())[(mod->getPositions()->size()-1)]);
 
 				mod->getSDVertices()->push_back(vert);
+				vertIdToPosIndex[mod->getSDVertices()->size()-1] = posIndex;
 				// store this verts position index, normal index and uv index
 				array<int,3> vertIndices = {posIndex,normIndex,uvIndex};
 				newVertexIndex.push_back(vertIndices);
 				newVertIndices[VertIds] = vertIndices;
 			}
 		}
+
 		// create new face from new position, normal and uv indices created above.
 		// create new indices for new faces
-
+		
 		// get indices of each position, uv and normal for existing points of face, create list of indices for each point
 		// using these indices
 		for(int j=0;j<currentFace->vertexPos.size();j++)
@@ -388,7 +390,17 @@ bool ModelSys::subDModel(Model* mod)
 			currentFace->vertNormIndex.push_back(getNormalIndex(mod,currentFace->vertexNorm[j]));
 			currentFace->vertUvIndex.push_back(getUvIndex(mod,currentFace->vertexUV[j]));
 		}
+	}
 
+	map<int, int>::iterator it;
+	for(it = vertIdToPosIndex.begin(); it != vertIdToPosIndex.end(); it++)
+	{
+		(*mod->getSDVertices())[it->first].setWorld(&(*mod->getPositions())[it->second]);
+	}
+
+	for(int i=0; i< origFaces->size();i++)
+	{
+		Face *currentFace = (*origFaces)[i];
 		// use indicies for each point to build new faces
 		for(int j=0;j<4;j++)
 		{	
@@ -460,7 +472,7 @@ bool ModelSys::subDModel(Model* mod)
 		
 		// newPos[2] -> newPos[1] -> newPos[0]
 
-		f = (*mod->getFaces())[mod->getFaces()->size()-2];
+		f = (*mod->getFaces())[mod->getFaces()->size()-1];
 		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[2][0]]);
 		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[1][0]]);
 		f->vertexPos.push_back(&(*mod->getPositions())[newVertexIndex[0][0]]);
@@ -481,6 +493,8 @@ bool ModelSys::subDModel(Model* mod)
 
 	// update original vertex normals
 	averageNorms(mod);
+
+	//mod->decreaseSubD();
 
 	return true;
 

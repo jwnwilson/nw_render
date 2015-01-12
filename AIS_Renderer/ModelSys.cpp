@@ -217,6 +217,8 @@ int ModelSys::getPositionIndex(Model* m, Vector3D* p)
 {
 	for(int i=0;i<m->getPositions()->size();i++)
 	{
+		cout << "position 1:" << &(*m->getPositions())[i];
+		cout << " position 2:" << p << endl;
 		if(&(*m->getPositions())[i] == p)
 			return i;
 	}
@@ -312,6 +314,7 @@ bool ModelSys::subDModel(Model* mod)
 	// to achieve this efficiently
 	vector<array<int,3>> newVertexIndex;
 	map<int,int> vertIdToPosIndex;
+	map<int,int> posIndexToVertId;
 	for(int i=0; i< origFaces->size();i++)
 	{
 		Face *currentFace = (*origFaces)[i];
@@ -372,6 +375,7 @@ bool ModelSys::subDModel(Model* mod)
 
 				mod->getSDVertices()->push_back(vert);
 				vertIdToPosIndex[mod->getSDVertices()->size()-1] = posIndex;
+				posIndexToVertId[posIndex] = mod->getSDVertices()->size()-1;
 				// store this verts position index, normal index and uv index
 				array<int,3> vertIndices = {posIndex,normIndex,uvIndex};
 				newVertexIndex.push_back(vertIndices);
@@ -386,9 +390,11 @@ bool ModelSys::subDModel(Model* mod)
 		// using these indices
 		for(int j=0;j<currentFace->vertexPos.size();j++)
 		{
+			mod->decreaseSubD();
 			currentFace->vertPosIndex.push_back(getPositionIndex(mod,currentFace->vertexPos[j]));
 			currentFace->vertNormIndex.push_back(getNormalIndex(mod,currentFace->vertexNorm[j]));
 			currentFace->vertUvIndex.push_back(getUvIndex(mod,currentFace->vertexUV[j]));
+			mod->increaseSubD();
 		}
 	}
 
@@ -425,6 +431,10 @@ bool ModelSys::subDModel(Model* mod)
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
 
+		f->v[0] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[0])]];
+		f->v[1] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[1])]];
+		f->v[2] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[2])]];
+
 		mod->getIndex()->push_back(currentFace->vertPosIndex[0]);
 		mod->getIndex()->push_back(newVertexIndex[0][0]);
 		mod->getIndex()->push_back(newVertexIndex[2][0]);
@@ -444,6 +454,10 @@ bool ModelSys::subDModel(Model* mod)
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
 		f->vertexUV.push_back(currentFace->vertexUV[1]);
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[1][2]]);
+	
+		f->v[0] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[0])]];
+		f->v[1] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[1])]];
+		f->v[2] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[2])]];
 
 		mod->getIndex()->push_back(newVertexIndex[0][0]);
 		mod->getIndex()->push_back(currentFace->vertPosIndex[1]);
@@ -465,6 +479,10 @@ bool ModelSys::subDModel(Model* mod)
 		f->vertexUV.push_back(currentFace->vertexUV[2]);
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
 
+		f->v[0] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[0])]];
+		f->v[1] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[1])]];
+		f->v[2] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[2])]];
+
 		mod->getIndex()->push_back(newVertexIndex[1][0]);
 		mod->getIndex()->push_back(currentFace->vertPosIndex[2]);
 		mod->getIndex()->push_back(newVertexIndex[2][0]);
@@ -484,6 +502,10 @@ bool ModelSys::subDModel(Model* mod)
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[2][2]]);
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[1][2]]);
 		f->vertexUV.push_back(&(*mod->getUVs())[newVertexIndex[0][2]]);
+
+		f->v[0] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[0])]];
+		f->v[1] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[1])]];
+		f->v[2] = &(*mod->getSDVertices())[posIndexToVertId[getPositionIndex(mod,f->vertexPos[2])]];
 
 		mod->getIndex()->push_back(newVertexIndex[2][0]);
 		mod->getIndex()->push_back(newVertexIndex[1][0]);

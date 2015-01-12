@@ -99,7 +99,8 @@ bool ModelAdv::rayIntersectInModel(Ray* ray1,float &t)const
 	}
 	else
 	{
-		for(int i=0;i< faces.size();i++)
+		// TODO: Check hit against subD 0 model to speed up program
+		for(int i=0;i< faces[0].size();i++)
 		{
 			for(int a=0;a< 3;a++)
 			{
@@ -220,10 +221,11 @@ bool ModelAdv::getRayIntersecPoint2(Ray* ray1,const Intersection* inter,float &t
 {
 	//const Vertex_R* v[3];
 	float b3;
-	VertexSD const *v[3];
+	VertexSD *v[3];
 	for(int i=0;i<3;i++)
 	{
 		v[i]= faces[subD][inter->face]->v[i];
+		v[i]->setNorm(faces[subD][inter->face]->vertexNorm[i]);
 	}
 	Vector3D tb1b2,s1,s2,e1,e2,s,normal;
 	e1=v[1]->getWorld()-v[0]->getWorld();

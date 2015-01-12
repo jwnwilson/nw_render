@@ -35,9 +35,9 @@ private:
 	vector<VertexSD*> getVerts(VertexSD* v);
 	void weightRing(VertexSD* v, float beta, Vertex_R&);
 
-	int getPositionIndex(Model*, Vector3D*);
-	int getNormalIndex(Model*, Vector4D*);
-	int getUvIndex(Model*, Vector2D*);
+	int getPositionIndex(Model* m, Vector3D*);
+	int getNormalIndex(Model* m, Vector4D*);
+	int getUvIndex(Model* m, Vector2D*);
 
 	void createPlane(vector<Vertex_R*> verts,Model&);
 };
